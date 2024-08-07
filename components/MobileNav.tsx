@@ -33,10 +33,10 @@ const MobileNav = () => {
             <path d="M10 18h10" />
           </svg>
         </SheetTrigger>
-        <SheetContent className="border-none flex flex-col justify-center">
+        <SheetContent className="border-none flex flex-col justify-center items-center">
           <SheetHeader className="text-centert text-xl">
             <SheetTitle className="pt-10 font-cormorant font-bold text-2xl">
-              Where do you want to go?
+              Where do you want to navigate?
             </SheetTitle>
             <SheetDescription className="font-cagliostro">
               Select one of the available locations.
