@@ -1,9 +1,9 @@
 import * as React from "react";
-import { Slot } from "@radix-ui/react-slot";
+import Link from "next/link";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
-const buttonVariants = cva(
+const linkButtonVariants = cva(
   "relative inline-flex items-center justify-center overflow-hidden group border border-black",
   {
     variants: {
@@ -12,7 +12,7 @@ const buttonVariants = cva(
         secondary: "bg-white text-black hover:text-white",
       },
       size: {
-        default: "px-8 py-2.5",
+        default: "px- 8 py-2.5",
         sm: "px-4 py-2",
         lg: "px-12 py-2.5",
       },
@@ -24,28 +24,24 @@ const buttonVariants = cva(
   }
 );
 
-export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {
-  asChild?: boolean;
+export interface LinkButtonProps
+  extends React.AnchorHTMLAttributes<HTMLAnchorElement>,
+    VariantProps<typeof linkButtonVariants> {
+  href: string;
 }
 
-const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(function Button(
-  {
-    className,
-    variant = "default",
-    size = "default",
-    asChild = false,
-    ...props
-  },
-  ref
-) {
-  const Component = asChild ? Slot : "button";
-
+const LinkButton: React.FC<LinkButtonProps> = ({
+  className,
+  variant = "default",
+  size = "default",
+  href,
+  children,
+  ...props
+}) => {
   return (
-    <Component
-      className={cn(buttonVariants({ variant, size, className }))}
-      ref={ref}
+    <Link
+      href={href}
+      className={cn(linkButtonVariants({ variant, size, className }))}
       {...props}
     >
       <span
@@ -62,12 +58,10 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(function Button(
           "group-hover:text-white": variant === "secondary",
         })}
       >
-        {props.children}
+        {children}
       </span>
-    </Component>
+    </Link>
   );
-});
+};
 
-Button.displayName = "Button";
-
-export { Button, buttonVariants };
+export { LinkButton, linkButtonVariants };

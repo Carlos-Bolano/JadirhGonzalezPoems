@@ -1,13 +1,9 @@
-import { Button } from "@/components/ui/button";
+import Cover from "@/sections/Cover";
 
 export default function Home() {
   return (
     <>
-      <h1 className="text-3xl font-cagliostro capitalize">hello world</h1>
-
-      <Button variant="default" size={"lg"}>
-        <span className="font-cormorant">hello</span>
-      </Button>
+      <Cover />
     </>
   );
 }
