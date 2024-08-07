@@ -18,9 +18,9 @@ const cormorantGaramond = Cormorant_Garamond({
 });
 
 export const metadata: Metadata = {
-  title: "jadirhGonzalezPoems",
+  title: "Jadirh González Poems - A literary journey where every word matters.",
   description:
-    "A dynamic blog exploring diverse topics close to my heart, particularly those related to the LGBTQIA+ community. Dive in and discover what sparks your curiosity and ignites your passion. Keep reading and enjoy!",
+    "A dynamic blog exploring diverse topics close to my heart, particularly those related to the LGBTQIA+ community. Dive in to discover what sparks your curiosity and ignites your passion. Keep reading and enjoy!",
 };
 
 export default function RootLayout({
