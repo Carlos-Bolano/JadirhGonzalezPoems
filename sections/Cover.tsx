@@ -6,13 +6,13 @@ import React from "react";
 
 const Cover = () => {
   return (
-    <section className="flex flex-col-reverse lg:flex-row justify-between items-center gap-3 md:gap-0 py-8 md:pl-10">
+    <section className="flex flex-col-reverse lg:flex-row justify-between items-center gap-3 md:gap-0 py-8 md:pl-10 container">
       <div className="flex flex-col gap-5 lg:max-w-lg">
-        <h1 className="text-3xl font-bold md:text-4xl lg:text-[45px] lg:leading-[45px] font-cormorant text-center lg:text-start text-balance ">
+        <h1 className="text-3xl font-bold md:text-4xl lg:text-[45px] lg:leading-[45px] font-cormorant text-center lg:text-start text-balance text-Dark">
           Explore Jadirh González Poems. A poetic journey full of emotions and
           reflections.
         </h1>
-        <p className="md:text-[20px] font-cagliostro text-center lg:text-start text-pretty">
+        <p className="md:text-[20px] font-cagliostro text-center lg:text-start text-pretty text-Text">
           A dynamic blog exploring diverse topics close to my heart,
           particularly those related to the{" "}
           <span className="text-red-600">L</span>
