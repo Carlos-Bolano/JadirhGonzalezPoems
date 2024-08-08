@@ -1,10 +1,11 @@
+"use client";
 import * as React from "react";
 import Link from "next/link";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const linkButtonVariants = cva(
-  "relative inline-flex items-center justify-center overflow-hidden group border border-Dark",
+  "relative inline-flex items-center font-cagliostro justify-center overflow-hidden group border border-Dark",
   {
     variants: {
       variant: {
@@ -38,10 +39,23 @@ const LinkButton: React.FC<LinkButtonProps> = ({
   children,
   ...props
 }) => {
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+    if (href.startsWith("#")) {
+      e.preventDefault();
+      const targetId = href.substring(1);
+      const targetElement = document.getElementById(targetId);
+
+      if (targetElement) {
+        targetElement.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  };
+
   return (
     <Link
       href={href}
       className={cn(linkButtonVariants({ variant, size, className }))}
+      onClick={handleClick}
       {...props}
     >
       <span
@@ -51,7 +65,7 @@ const LinkButton: React.FC<LinkButtonProps> = ({
         )}
       ></span>
       <span
-        className={cn("relative text-base font-semibold", {
+        className={cn("relative text-base", {
           "group-hover:text-Dark": variant === "default",
           "group-hover:text-white": variant === "secondary",
         })}

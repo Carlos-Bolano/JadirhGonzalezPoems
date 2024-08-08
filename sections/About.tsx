@@ -5,7 +5,7 @@ import React from "react";
 
 const About = () => {
   return (
-    <section>
+    <section id="about">
       <Image
         src="/up.svg"
         sizes="100vw"
@@ -49,7 +49,7 @@ const About = () => {
             </p>
             <div className="flex justify-center md:justify-start lg:gap-6 mt-5">
               <Link
-                className="font-cagliostro relative inline-flex items-center justify-center overflow-hidden group border hover:border-white bg-white text-Dark font-bold py-2.5 px-4"
+                className="font-cagliostro relative inline-flex items-center justify-center overflow-hidden group border hover:border-white bg-white text-Dark py-2.5 px-4"
                 href="/#contact"
               >
                 <span className="absolute w-0 h-0 transition-all duration-500 ease-out rounded-full group-hover:w-56 group-hover:h-56 group-hover:bg-Dark"></span>

@@ -1,7 +1,5 @@
-import { Button } from "@/components/ui/Button";
 import { LinkButton } from "@/components/ui/LinkButton";
 import Image from "next/image";
-import Link from "next/link";
 import React from "react";
 
 const Cover = () => {
