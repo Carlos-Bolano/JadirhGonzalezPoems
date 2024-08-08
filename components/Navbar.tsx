@@ -12,7 +12,7 @@ const Navbar = () => {
   return (
     <header
       className={cn(
-        "fixed z-50 w-full font-cagliostro border-b text-sm bg-white/10 backdrop-blur-lg"
+        "fixed z-50 w-full font-cagliostro border-b text-sm bg-white/40 backdrop-blur-lg"
       )}
     >
       <div className="flex justify-between items-center py-4 container">
