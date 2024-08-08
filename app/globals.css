@@ -49,6 +49,27 @@ html {
   background-size: contain;
 }
 
+/* latest section classes */
+
+.latest-border {
+ position: relative;
+}
+
+.latest-border::after {
+  content: "";
+  width: 45%;
+  height: 2.5px;
+  background: #20202099;
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
+  bottom: -20px;
+  transition: all 0.5s ease;
+  font-family: var(--font-cagliostro)
+}
+
+
 @layer base {
   :root {
     --background: 0 0% 100%;
