@@ -3,7 +3,6 @@ import { Cagliostro, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import Navbar from "@/components/Navbar";
-import Section from "@/components/Section";
 
 const cagliostro = Cagliostro({
   weight: ["400"],
@@ -39,7 +38,7 @@ export default function RootLayout({
       >
         <main className="relative">
           <Navbar />
-          <main className="pt-[70px] container">{children}</main>
+          <main className="pt-[70px]">{children}</main>
         </main>
       </body>
     </html>

@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
   
+html {
+  scroll-behavior: smooth;
+}
 /* reusable classes */
 
 .container {
@@ -22,7 +25,7 @@
   content: "";
   width: 0;
   height: 2px;
-  background: black;
+  background: #202020;
   position: absolute;
   left: 0;
   bottom: -3px;
@@ -37,6 +40,15 @@
 .afterActive::after {
   width: 100%;
 }
+
+/* about classes */
+.about{
+  background-image: url('../public/assets/about2.png') ;
+  background-repeat: no-repeat;
+  background-position: right;
+  background-size: contain;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -95,10 +107,7 @@
 }
 
 @layer base {
-  * {
-    @apply border-border;
-  }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-white text-Dark;
   }
 }

@@ -1,0 +1,49 @@
+import Image from "next/image";
+import React from "react";
+
+const HowBegan = () => {
+  return (
+    <section
+      id="/#about"
+      className="flex flex-col lg:flex-row justify-center items-center lg:gap-10 xl:gap-28 my-8 gap-4 container"
+    >
+      <Image
+        className=""
+        src="/assets/lights.png"
+        width={500}
+        height={500}
+        alt="howbegan"
+      />
+      <article>
+        <h2 className="text-3xl font-bold md:text-4xl lg:text-[45px] lg:leading-[45px] font-cormorant text-center lg:text-start text-balance text-Dark ">
+          How did JG Poems begin?
+        </h2>
+        <p className="md:text-[20px] font-cagliostro text-center lg:text-start text-pretty text-Text mt-4 max-w-[530px]">
+          I started JG Poems with the goal of offering readers insight into my
+          thoughts and experiences.{" "}
+        </p>
+        <p className="md:text-[20px] font-cagliostro text-center lg:text-start text-pretty text-Text mt-4 max-w-[530px]">
+          What I started as weekly posts has become a dynamic site packed with
+          information on various topics that are close and important to me
+          especially the <span className="text-red-600">L</span>
+          <span className="text-green-600">G</span>
+          <span className="text-blue-600">B</span>
+          <span className="text-yellow-400">T</span>
+          <span className="text-orange-600">Q</span>
+          <span className="text-green-300">I</span>
+          <span className="text-purple-600">A</span>
+          <span className="text-gradient bg-gradient-to-r from-red-500 via-yellow-500 to-purple-500 text-transparent bg-clip-text">
+            +
+          </span>{" "}
+          community.{" "}
+        </p>
+        <p className="md:text-[20px] font-cagliostro text-center lg:text-start text-pretty text-Text mt-4 max-w-[530px]">
+          Take your time to explore the blog and see for yourself what makes you
+          curious and excited.{" "}
+        </p>
+      </article>
+    </section>
+  );
+};
+
+export default HowBegan;
