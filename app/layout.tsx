@@ -33,7 +33,7 @@ export default function RootLayout({
         className={`${cagliostro.variable} ${cormorantGaramond.variable} flex flex-col min-h-screen`}
       >
         <Navbar />
-        <main className="flex-grow pt-[70px]">{children}</main>
+        <main className="flex-grow pt-[68px]">{children}</main>
         <Footer />
       </body>
     </html>

@@ -69,6 +69,17 @@ html {
   font-family: var(--font-cagliostro)
 }
 
+/* card container classes */
+
+.cards {
+  display: grid;
+  margin: 0 auto;
+  width: 100%;
+  place-items: center;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1rem;
+}
 
 @layer base {
   :root {
