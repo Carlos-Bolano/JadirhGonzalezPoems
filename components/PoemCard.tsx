@@ -25,7 +25,7 @@ interface PoemCardProps {
 }
 
 const PoemCard: React.FC<PoemCardProps> = ({ poem, href }) => {
-  const { title, content, date, readingTime, views } = poem;
+  const { title, content, date, readingTime, views, likes } = poem;
 
   const getTruncatedContent = (text: string, maxLength: number) => {
     if (text.length <= maxLength) return text;
@@ -42,9 +42,10 @@ const PoemCard: React.FC<PoemCardProps> = ({ poem, href }) => {
         {getTruncatedContent(content, 220)}
       </p>
       <div className="flex justify-between text-Text text-sm font-cagliostro mt-2">
-        <span>{date}</span>
+        <span>{likes} Likes</span>
+        <span>{views} Views</span>
         <span>{readingTime} min</span>
-        <span>{views} views</span>
+        <span>{date}</span>
       </div>
     </Link>
   );
