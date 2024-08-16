@@ -4,7 +4,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "relative inline-flex items-center justify-center overflow-hidden group border border-Dark",
+  "relative inline-flex items-center justify-center overflow-hidden group border border-Dark font-cagliostro",
   {
     variants: {
       variant: {
@@ -55,7 +55,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(function Button(
         )}
       ></span>
       <span
-        className={cn("relative text-base font-semibold", {
+        className={cn("relative text-base", {
           "group-hover:text-Dark": variant === "default",
           "group-hover:text-white": variant === "secondary",
         })}
