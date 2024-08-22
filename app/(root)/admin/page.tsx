@@ -1,8 +1,10 @@
 "use client";
+import AdminPoemCard from "@/components/AdminPoemCard";
+import { CreatePoem } from "@/components/CreatePoem";
 import MostPoemCard from "@/components/MostPoemCard";
-import PoemCard from "@/components/PoemCard";
+
 import TotalAdminCard from "@/components/TotalAdminCard";
-import { Button } from "@/components/ui/Button";
+
 import {
   Select,
   SelectContent,
@@ -62,24 +64,27 @@ const AdminPage = () => {
             delete poems, you can also see some statistics of your poems
           </p>
           <div className="flex justify-center lg:justify-normal mt-4">
-            <Button variant="default">Create a new poem</Button>
+            <CreatePoem />
           </div>
         </div>
         <aside className="flex flex-col justify-between items-center md:justify-normal lg:items-end gap-5 ">
           <div className="flex flex-col md:flex-row-reverse gap-5">
             <MostPoemCard
+              tag="Most Seen"
               href="/"
               title="eco del invierno"
               content="alla en tu casa con la silla de...  "
               count={400}
             />
             <MostPoemCard
+              tag="Most Seen"
               href="/"
               title="eco del invierno"
               content="alla en tu casa con la silla de...  "
               count={400}
             />
             <MostPoemCard
+              tag="Most Seen"
               href="/"
               title="eco del invierno"
               content="alla en tu casa con la silla de...  "
@@ -106,13 +111,15 @@ const AdminPage = () => {
             </SelectContent>
           </Select>
           <span>Edit yours poems or write down a new one!</span>
-          <Button variant="default" size={"lg"}>
-            New poem
-          </Button>
+          <CreatePoem />
         </div>
         <div className="cards">
           {sortedPoems.map((poem) => (
-            <PoemCard key={poem.id} poem={poem} href={`/blog/${poem.id}`} />
+            <AdminPoemCard
+              key={poem.id}
+              poem={poem}
+              href={`/blog/${poem.id}`}
+            />
           ))}
         </div>
       </section>
