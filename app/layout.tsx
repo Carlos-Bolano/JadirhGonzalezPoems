@@ -3,6 +3,7 @@ import { Cagliostro, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import Providers from "./Providers";
 
 const cagliostro = Cagliostro({
   weight: ["400"],
@@ -32,9 +33,11 @@ export default function RootLayout({
       <body
         className={`${cagliostro.variable} ${cormorantGaramond.variable} flex flex-col min-h-screen`}
       >
-        <Navbar />
-        <main className="flex-grow pt-[68px]">{children}</main>
-        <Footer />
+        <Providers>
+          <Navbar />
+          <main className="flex-grow pt-[68px]">{children}</main>
+          <Footer />
+        </Providers>
       </body>
     </html>
   );

@@ -1,13 +1,38 @@
+"use client";
+import { FormEvent, useState } from "react";
+import { AxiosError } from "axios";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
 import Image from "next/image";
 import React from "react";
 
 const SingIn = () => {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const router = useRouter();
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setLoading(true);
+    const formData = new FormData(event.currentTarget);
+    const res = await signIn("credentials", {
+      email: formData.get("email"),
+      password: formData.get("password"),
+      redirect: false,
+    });
+    console.log(res);
+    if (res?.error) setError(res.error as string);
+
+    if (res?.ok) return router.push("/admin");
+    setLoading(false);
+  };
   return (
     <section className="grid place-items-center justify-center bg-[#f5f5f57e] min-h-[calc(100vh-150px)]">
       <div className="container flex flex-col lg:flex-row justify-center items-center mx-auto p-10 ">
         <Image
+          unoptimized
           className="rounded-lg "
           src="/assets/drops-animation.gif"
           width={500}
@@ -23,7 +48,7 @@ const SingIn = () => {
           </p>
           <form
             className="mt-10 flex flex-col justify-center items-center gap-5"
-            action=""
+            onSubmit={handleSubmit}
           >
             <Input
               label="Email"
@@ -41,7 +66,7 @@ const SingIn = () => {
             />
             <div>
               <Button variant={"default"} size={"lg"} type="submit">
-                Sign In
+                {loading ? "Loading..." : "Sign In"}
               </Button>
             </div>
           </form>
