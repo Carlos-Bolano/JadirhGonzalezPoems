@@ -1,10 +1,9 @@
-"use client";
 import AdminPoemCard from "@/components/AdminPoemCard";
 import { CreatePoem } from "@/components/CreatePoem";
+import Greeting from "@/components/greeting";
 import MostPoemCard from "@/components/MostPoemCard";
-
+import { Poem } from "@/components/PoemCard";
 import TotalAdminCard from "@/components/TotalAdminCard";
-
 import {
   Select,
   SelectContent,
@@ -13,32 +12,21 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { DropdownMenuDemo } from "@/components/User";
-import { Poems } from "@/constants";
 import Search from "@/icons/Search";
-import { useState } from "react";
+import { getMostPoem, getPoems } from "@/lib/actions/poem.actions";
 
-const AdminPage = () => {
-  const [filter, setFilter] = useState("All");
+const AdminPage = async () => {
+  const Poems: Poem[] = await getPoems();
+  const totalPoems = Poems.length;
+  const mostPoem = await getMostPoem();
+  const {
+    mostViewedPoem,
+    mostLikedPoem,
+    mostCommentedPoem,
+    totalViews,
+    totalLikes,
+  } = mostPoem;
 
-  const filteredPoems = Poems.filter((poem) => {
-    if (filter === "MostSeen") {
-      return poem.views > 0;
-    }
-    if (filter === "MostLiked") {
-      return poem.likes > 0;
-    }
-    return true;
-  });
-
-  const sortedPoems = filteredPoems.sort((a, b) => {
-    if (filter === "MostSeen") {
-      return b.views - a.views;
-    }
-    if (filter === "MostLiked") {
-      return b.likes - a.likes;
-    }
-    return 0;
-  });
   return (
     <section className="container py-8">
       <header className="flex flex-col md:flex-row md:justify-between items-center gap-4 pb-8">
@@ -56,9 +44,7 @@ const AdminPage = () => {
       </header>
       <section className="flex flex-col justify-between lg:flex-row gap-5">
         <div className="font-cagliostro">
-          <h2 className="text-3xl font-bold md:text-4xl lg:text-[45px] lg:leading-[45px] font-cormorant text-center lg:text-start text-balance text-Dark mb-4">
-            Good morning Jadirh 🌞
-          </h2>
+          <Greeting />
           <p className="md:text-[20px] font-cagliostro text-center lg:text-start text-pretty text-Text md:max-w-xl md:m-auto">
             Welcome to your administration panel Here you can create, edit and
             delete poems, you can also see some statistics of your poems
@@ -70,37 +56,37 @@ const AdminPage = () => {
         <aside className="flex flex-col justify-between items-center md:justify-normal lg:items-end gap-5 ">
           <div className="flex flex-col md:flex-row-reverse gap-5">
             <MostPoemCard
-              tag="Most Seen"
-              href="/"
-              title="eco del invierno"
-              content="alla en tu casa con la silla de...  "
-              count={400}
+              title={mostViewedPoem.title}
+              content={mostViewedPoem.content}
+              count={mostViewedPoem.views}
+              href={"/blog/" + mostViewedPoem._id}
+              tag="Most Viewed"
             />
             <MostPoemCard
-              tag="Most Seen"
-              href="/"
-              title="eco del invierno"
-              content="alla en tu casa con la silla de...  "
-              count={400}
+              title={mostLikedPoem.title}
+              content={mostLikedPoem.content}
+              count={mostLikedPoem.likes}
+              href={"/blog/" + mostLikedPoem._id}
+              tag="Most Liked"
             />
             <MostPoemCard
-              tag="Most Seen"
-              href="/"
-              title="eco del invierno"
-              content="alla en tu casa con la silla de...  "
-              count={400}
+              title={mostCommentedPoem.title}
+              content={mostCommentedPoem.content}
+              count={mostCommentedPoem.comments.length}
+              href={"/blog/" + mostCommentedPoem._id}
+              tag="Most Commented"
             />
           </div>
           <div className="flex flex-col md:flex-row-reverse gap-5">
-            <TotalAdminCard title="Poems" count={20} />
-            <TotalAdminCard title="Likes" count={128} />
-            <TotalAdminCard title="Views" count={400} />
+            <TotalAdminCard title="Poems" count={totalPoems} />
+            <TotalAdminCard title="Likes" count={totalLikes} />
+            <TotalAdminCard title="Views" count={totalViews} />
           </div>
         </aside>
       </section>
       <section className="mt-20">
         <div className="flex justify-between items-center gap-8 mb-10">
-          <Select onValueChange={(value) => setFilter(value)}>
+          <Select>
             <SelectTrigger className="w-[180px]">
               <SelectValue placeholder="All Poems" />
             </SelectTrigger>
@@ -114,11 +100,11 @@ const AdminPage = () => {
           <CreatePoem />
         </div>
         <div className="cards">
-          {sortedPoems.map((poem) => (
+          {Poems.map((poem: Poem) => (
             <AdminPoemCard
-              key={poem.id}
+              key={poem._id}
               poem={poem}
-              href={`/blog/${poem.id}`}
+              href={`/blog/${poem._id}`}
             />
           ))}
         </div>

@@ -1,17 +1,50 @@
+"use client";
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-
+import { useState } from "react";
+import Input from "./ui/Input";
+import Textarea from "./ui/TextArea";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "./ui/select";
+import axios from "axios";
 import { Button } from "./ui/Button";
-import CreatePoemForm from "./CreatePoemForm";
+import { useRouter } from "next/navigation";
 
 export function CreatePoem() {
+  const [loading, setLoading] = useState(false);
+
+  const router = useRouter();
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setLoading(true);
+    const formData = new FormData(e.currentTarget);
+    const newPoem = {
+      title: formData.get("title"),
+      content: formData.get("content"),
+      readingTime: new Number(formData.get("readingTime")),
+    };
+
+    const res = await axios.post("/api/poems", newPoem);
+
+    if (res.status === 200) {
+      setLoading(false);
+      router.refresh();
+    }
+  };
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -27,7 +60,50 @@ export function CreatePoem() {
             world.
           </DialogDescription>
         </DialogHeader>
-        <CreatePoemForm />
+        <form onSubmit={handleSubmit}>
+          <Input
+            label="Title of Poem"
+            name="title"
+            type="text"
+            placeholder="love and other drugs of life"
+            required
+          />
+          <Textarea
+            className="mt-4"
+            label="Content of Poem"
+            name="content"
+            rows={5}
+            placeholder="love and other drugs of life"
+            required
+          />
+          <div className="mt-4 flex flex-wrap gap-4 justify-between">
+            <Select name="readingTime" defaultValue="1">
+              <SelectTrigger className="w-[180px]">
+                <SelectValue placeholder="Time of reading" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectLabel>Times</SelectLabel>
+                  <SelectItem value="1">1 Minute</SelectItem>
+                  <SelectItem value="2">2 Minutes</SelectItem>
+                  <SelectItem value="3">3 Minutes</SelectItem>
+                  <SelectItem value="4">4 Minutes</SelectItem>
+                  <SelectItem value="5">5 Minutes</SelectItem>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+            <DialogClose asChild>
+              <Button
+                variant="default"
+                size={"lg"}
+                type="submit"
+                onClick={() => handleSubmit}
+              >
+                {loading ? "Loading..." : "Create Poem"}
+              </Button>
+            </DialogClose>
+          </div>
+        </form>
       </DialogContent>
     </Dialog>
   );

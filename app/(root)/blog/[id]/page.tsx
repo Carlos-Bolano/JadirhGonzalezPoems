@@ -1,14 +1,13 @@
-"use client";
 import HeaderBlog from "@/components/HeaderBlog";
-import { Poems } from "@/constants";
 import { CircleUserRound } from "lucide-react";
 import { notFound } from "next/navigation";
 import { DialogDemo } from "@/components/ComentaryDialoge";
+import { getPoem } from "@/lib/actions/poem.actions";
+import { Comment, Poem } from "@/components/PoemCard";
+import { formatDate } from "@/lib/utils";
 
-const PoemPage = ({ params }: { params: { id: string } }) => {
-  // Busca el poema por ID
-  const poem = Poems.find((p) => p.id === Number(params.id));
-
+const PoemPage = async ({ params }: { params: { id: string } }) => {
+  const poem: Poem = await getPoem(params.id);
   if (!poem) {
     notFound();
   }
@@ -31,10 +30,11 @@ const PoemPage = ({ params }: { params: { id: string } }) => {
             <p>{poem.views} Views</p>
 
             <p>{poem.readingTime} Min of reading</p>
-            <p className="">{poem.date}</p>
+            <p className="">{formatDate(poem.date, true)}</p>
           </div>
         </div>
       </article>
+
       <article className="my-10 m-auto max-w-3xl font-cagliostro border-2 border-Dark/50 p-10">
         <div className=" flex justify-between items-center gap-4">
           <h3 className="text-3xl font-bold md:text-4xl lg:text-[45px] lg:leading-[45px] font-cormorant text-center text-balance text-Dark">
@@ -43,8 +43,8 @@ const PoemPage = ({ params }: { params: { id: string } }) => {
           <DialogDemo />
         </div>
         <div>
-          {poem.comments.map((comment) => (
-            <div key={comment.id} className="flex items-center gap-2  my-6">
+          {poem.comments.map((comment: Comment) => (
+            <div key={comment._id} className="flex items-center gap-2  my-6">
               <CircleUserRound className="w-10 h-10" />
               <div>
                 <p className="font-bold">{comment.author}</p>

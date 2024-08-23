@@ -2,13 +2,13 @@ import Link from "next/link";
 import React from "react";
 
 interface Comment {
-  id: number;
+  _id: number;
   text: string;
   author: string;
 }
 
 interface Poem {
-  id: number;
+  _id: number;
   title: string;
   content: string;
   readingTime: number;
@@ -25,9 +25,9 @@ interface AdminPoemCardProps {
 }
 
 const AdminPoemCard: React.FC<AdminPoemCardProps> = ({ poem, href }) => {
-  const { title, content, date, readingTime, views, likes } = poem;
+  const { title, content, views } = poem;
 
-  const getTruncatedContent = (text: string, maxLength: number) => {
+  const getTruncatedText = (text: string, maxLength: number) => {
     if (text.length <= maxLength) return text;
     return text.slice(0, maxLength) + "...";
   };
@@ -36,10 +36,10 @@ const AdminPoemCard: React.FC<AdminPoemCardProps> = ({ poem, href }) => {
     <div className="border-2 p-4 border-Dark/50 max-w-[320px] flex flex-col gap-1 transition-all duration-300 hover:border-Dark hover:shadow-2xl">
       <Link href={href} className="">
         <h3 className="text-2xl font-cormorant text-Dark text-center">
-          {title}
+          {getTruncatedText(title, 25)}
         </h3>
         <p className="text-Text text-sm  text-center font-cagliostro">
-          {getTruncatedContent(content, 220)}
+          {getTruncatedText(content, 210)}
         </p>
       </Link>
       <div className="flex justify-between text-Text text-sm font-cagliostro mt-2">

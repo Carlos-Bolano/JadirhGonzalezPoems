@@ -5,14 +5,17 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import MobileNav from "./MobileNav";
 import Image from "next/image";
+import { useSession } from "next-auth/react";
 
 const Navbar = () => {
+  const { status } = useSession();
   const pathname = usePathname();
   const isActive = pathname === "/sing-in";
   return (
     <header
+      style={{ backdropFilter: "blur(8px)" }}
       className={cn(
-        "fixed z-50 w-full font-cagliostro border-b text-sm bg-white/40 backdrop-blur-lg"
+        "fixed z-50 w-full font-cagliostro border-b text-sm bg-white/50"
       )}
     >
       <div className="flex justify-between items-center py-4 container">
@@ -40,14 +43,25 @@ const Navbar = () => {
             );
           })}
           <div className="flex justify-between items-center">
-            <Link
-              href={"/sing-in"}
-              className={cn(" drop-shadow-2xl navlink hidden lg:flex", {
-                "text-black afterActive": isActive,
-              })}
-            >
-              Sing In
-            </Link>
+            {status === "authenticated" ? (
+              <Link
+                href={"/admin"}
+                className={cn("navlink", {
+                  "text-black afterActive": isActive,
+                })}
+              >
+                Admin
+              </Link>
+            ) : (
+              <Link
+                href={"/sing-in"}
+                className={cn("navlink", {
+                  "text-black afterActive": isActive,
+                })}
+              >
+                Sing in
+              </Link>
+            )}
           </div>
         </nav>
 

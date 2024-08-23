@@ -1,10 +1,16 @@
-import PoemCard from "@/components/PoemCard";
+import PoemCard, { Poem } from "@/components/PoemCard";
 import { LinkButton } from "@/components/ui/LinkButton";
-import { Poems } from "@/constants";
+import { getRecentPoems } from "@/lib/actions/poem.actions";
 import React from "react";
 
-const Latest = () => {
-  const latestPoems = Poems.slice(-8);
+const Latest = async () => {
+  let poems: Poem[] = [];
+
+  try {
+    poems = await getRecentPoems();
+  } catch (error) {
+    console.error("Failed to fetch poems:", error);
+  }
 
   return (
     <section className="container mt-10 flex flex-col gap-14 justify-center items-center">
@@ -19,8 +25,8 @@ const Latest = () => {
         </p>
       </header>
       <section className="cards">
-        {latestPoems.map((poem) => (
-          <PoemCard key={poem.id} poem={poem} href={`/blog/${poem.id}`} />
+        {poems.map((poem: Poem) => (
+          <PoemCard key={poem._id} poem={poem} href={`/blog/${poem._id}`} />
         ))}
       </section>
       <div>
