@@ -1,5 +1,7 @@
 import Link from "next/link";
 import React from "react";
+import { UpdatePoem } from "./UpdatePoem";
+import { DeletePoem } from "./DeletePoem";
 
 interface Comment {
   _id: number;
@@ -43,9 +45,9 @@ const AdminPoemCard: React.FC<AdminPoemCardProps> = ({ poem, href }) => {
         </p>
       </Link>
       <div className="flex justify-between text-Text text-sm font-cagliostro mt-2">
-        <button className="text-blue-400">Edit Poem</button>
+        <UpdatePoem poemId={poem._id.toString()} />
         <span className="text-green-400">{views} Views</span>
-        <button className="font-cagliostro text-red-400">Delete Poem</button>
+        <DeletePoem poemId={poem._id.toString()} />
       </div>
     </div>
   );

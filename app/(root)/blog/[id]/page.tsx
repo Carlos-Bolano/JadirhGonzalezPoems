@@ -1,10 +1,12 @@
 import HeaderBlog from "@/components/HeaderBlog";
 import { CircleUserRound } from "lucide-react";
 import { notFound } from "next/navigation";
-import { DialogDemo } from "@/components/ComentaryDialoge";
+import { CommentForm } from "@/components/CommentForm";
 import { getPoem } from "@/lib/actions/poem.actions";
 import { Comment, Poem } from "@/components/PoemCard";
 import { formatDate } from "@/lib/utils";
+import LikeButton from "@/components/LikeButton";
+import View from "@/icons/View";
 
 const PoemPage = async ({ params }: { params: { id: string } }) => {
   const poem: Poem = await getPoem(params.id);
@@ -26,8 +28,14 @@ const PoemPage = async ({ params }: { params: { id: string } }) => {
             by {poem.author}
           </p>
           <div className="flex flex-wrap gap-8 justify-center sm:justify-between mt-10">
-            <p>{poem.likes} Likes</p>
-            <p>{poem.views} Views</p>
+            <LikeButton
+              poemId={poem._id.toString()}
+              initialLikes={poem.likes}
+            />
+            <span className="flex gap-1 items-center justify-center">
+              <View />
+              {poem.views} Views
+            </span>
 
             <p>{poem.readingTime} Min of reading</p>
             <p className="">{formatDate(poem.date, true)}</p>
@@ -40,7 +48,7 @@ const PoemPage = async ({ params }: { params: { id: string } }) => {
           <h3 className="text-3xl font-bold md:text-4xl lg:text-[45px] lg:leading-[45px] font-cormorant text-center text-balance text-Dark">
             Comments
           </h3>
-          <DialogDemo />
+          <CommentForm id={poem._id.toString()} />
         </div>
         <div>
           {poem.comments.map((comment: Comment) => (

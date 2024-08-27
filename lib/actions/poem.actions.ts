@@ -24,26 +24,6 @@ export async function getPoems() {
   }
 }
 
-export async function getRecentPoems(limit: number = 8) {
-  try {
-    await connectDB();
-
-    const poems = await Poem.find().sort({ createdAt: -1 }).limit(limit);
-
-    return JSON.parse(JSON.stringify(poems));
-  } catch (error) {
-    if (error instanceof Error) {
-      return NextResponse.json(
-        {
-          message: error.message,
-        },
-        {
-          status: 500,
-        }
-      );
-    }
-  }
-}
 export async function getPoem(id: string) {
   try {
     await connectDB();
@@ -67,7 +47,6 @@ export async function createPoem(data: any) {
   try {
     await connectDB();
     const poem = JSON.stringify(data);
-    console.log(poem);
 
     const result = CreatePoemSchema.safeParse(poem);
 
@@ -85,6 +64,46 @@ export async function createPoem(data: any) {
     const savedPoem = await newPoem.save();
 
     return savedPoem;
+  } catch (error) {
+    if (error instanceof Error) {
+      return NextResponse.json(
+        {
+          message: error.message,
+        },
+        {
+          status: 500,
+        }
+      );
+    }
+  }
+}
+
+export async function updatePoem(id: string, data: any) {
+  try {
+    await connectDB();
+    const poem = await Poem.findByIdAndUpdate(id, data, { new: true });
+    return JSON.parse(JSON.stringify(poem));
+  } catch (error) {
+    if (error instanceof Error) {
+      return NextResponse.json(
+        {
+          message: error.message,
+        },
+        {
+          status: 500,
+        }
+      );
+    }
+  }
+}
+
+export async function getRecentPoems(limit: number = 8) {
+  try {
+    await connectDB();
+
+    const poems = await Poem.find().sort({ createdAt: -1 }).limit(limit);
+
+    return JSON.parse(JSON.stringify(poems));
   } catch (error) {
     if (error instanceof Error) {
       return NextResponse.json(
@@ -142,5 +161,89 @@ export async function getMostPoem() {
         }
       );
     }
+  }
+}
+
+export async function incrementViews(poemId: string) {
+  try {
+    await connectDB();
+    const poem = await Poem.findByIdAndUpdate(
+      poemId,
+      { $inc: { views: 1 } },
+      { new: true }
+    );
+    return poem?.views || 0;
+  } catch (error) {
+    console.error("Error incrementing views:", error);
+    return null;
+  }
+}
+
+export async function incrementLikes(poemId: string) {
+  try {
+    await connectDB();
+
+    const poem = await Poem.findById(poemId);
+
+    if (!poem) {
+      throw new Error("Poem not found");
+    }
+
+    poem.likes += 1;
+    await poem.save();
+
+    return poem.likes;
+  } catch (error) {
+    console.error("Error incrementing likes:", error);
+    return null;
+  }
+}
+
+export async function decrementLikes(poemId: string) {
+  try {
+    await connectDB();
+
+    const poem = await Poem.findById(poemId);
+
+    if (!poem) {
+      throw new Error("Poem not found");
+    }
+
+    poem.likes -= 1;
+    await poem.save();
+
+    return poem.likes;
+  } catch (error) {
+    console.error("Error decrementing likes:", error);
+    return null;
+  }
+}
+
+export async function commentPoem(
+  poemId: string,
+  comment: {
+    name: string;
+    comment: string;
+  }
+) {
+  try {
+    await connectDB();
+    const poem = await Poem.findById(poemId);
+
+    if (!poem) {
+      throw new Error("Poem not found");
+    }
+
+    poem.comments.push({
+      author: comment.name,
+      text: comment.comment,
+    });
+
+    await poem.save();
+
+    return { success: true };
+  } catch (error) {
+    console.error("Error adding comment:", error);
+    return null;
   }
 }
