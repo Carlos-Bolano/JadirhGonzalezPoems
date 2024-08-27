@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Providers from "./Providers";
+import { Toaster } from "@/components/ui/toaster";
 
 const cagliostro = Cagliostro({
   weight: ["400"],
@@ -36,6 +37,7 @@ export default function RootLayout({
         <Providers>
           <Navbar />
           <main className="flex-grow pt-[68px]">{children}</main>
+          <Toaster />
           <Footer />
         </Providers>
       </body>
