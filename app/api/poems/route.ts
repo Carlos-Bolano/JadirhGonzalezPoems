@@ -57,7 +57,6 @@ export async function GET() {
   try {
     await connectDB();
     const poems = await Poem.find();
-    console.log(poems);
     return NextResponse.json(poems);
   } catch (error) {
     if (error instanceof Error) {
