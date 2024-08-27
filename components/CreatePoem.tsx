@@ -23,6 +23,7 @@ import {
 import axios from "axios";
 import { Button } from "./ui/Button";
 import { useRouter } from "next/navigation";
+import { toast } from "./ui/use-toast";
 
 export function CreatePoem() {
   const [loading, setLoading] = useState(false);
@@ -42,6 +43,9 @@ export function CreatePoem() {
 
     if (res.status === 200) {
       setLoading(false);
+      toast({
+        description: "Your poem has been created.",
+      });
       router.refresh();
     }
   };
