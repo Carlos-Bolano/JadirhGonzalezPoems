@@ -6,7 +6,6 @@ import { getPoems } from "@/lib/actions/poem.actions";
 
 const BlogPage = async () => {
   const Poems: Poem[] = await getPoems();
-  console.log(Poems);
   return (
     <section className="container">
       <HeaderBlog />
