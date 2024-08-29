@@ -22,7 +22,7 @@ const About = () => {
           <div>
             <Image
               src="/assets/jadirh.png"
-              alt="about"
+              alt="Jadirh Gonzalez photo"
               width={400}
               height={400}
             />
@@ -71,7 +71,7 @@ const About = () => {
         }}
         width={0}
         height={0}
-        alt="up"
+        alt="down"
       />
     </section>
   );

@@ -30,8 +30,13 @@ const Latest = async () => {
         ))}
       </section>
       <div>
-        <LinkButton href="/blog" variant={"default"} size={"lg"}>
-          Read more
+        <LinkButton
+          href="/blog"
+          title="go to blog page"
+          variant={"default"}
+          size={"lg"}
+        >
+          Read more Poems
         </LinkButton>
       </div>
     </section>
