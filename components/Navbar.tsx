@@ -18,12 +18,12 @@ const Navbar = () => {
         "fixed z-50 w-full font-cagliostro border-b text-sm bg-white/50"
       )}
     >
-      <div className="flex justify-between items-center py-4 container">
+      <div className="flex justify-between items-center py-3 container">
         <Link
           href={"/"}
           className="font-cagliostro tracking-[1px]  flex items-start gap-1"
         >
-          <Image src={"/logo.svg"} width={50} height={50} alt="logo" />
+          <Image src={"/logo.svg"} width={45} height={45} alt="logo" />
         </Link>
         <nav className="hidden lg:flex justify-between items-center gap-8 uppercase text-black tracking-[1px]">
           {NavLinks.map((item) => {
@@ -47,7 +47,8 @@ const Navbar = () => {
               <Link
                 href={"/admin"}
                 className={cn("navlink", {
-                  "text-black afterActive": isActive,
+                  "text-black afterActive":
+                    pathname === "/admin" ? true : false,
                 })}
               >
                 Admin

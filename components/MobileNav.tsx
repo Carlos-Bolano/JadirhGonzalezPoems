@@ -8,14 +8,16 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { NavLinks } from "@/constants";
-
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 
 const MobileNav = () => {
+  const { status } = useSession();
+
   return (
     <nav className="flex lg:hidden font-cagliostro justify-center items-center">
       <Sheet>
-        <SheetTrigger>
+        <SheetTrigger title="Menu button navbar for mobile">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="35"
@@ -58,12 +60,21 @@ const MobileNav = () => {
                 );
               })}
               <SheetClose asChild key={"/sing-in"}>
-                <Link
-                  href={"/sing-in"}
-                  className="drop-shadow-2xl text-center navlink "
-                >
-                  Sing in
-                </Link>
+                {status === "authenticated" ? (
+                  <Link
+                    href={"/admin"}
+                    className="navlink drop-shadow-2xl text-center"
+                  >
+                    Admin
+                  </Link>
+                ) : (
+                  <Link
+                    href={"/sing-in"}
+                    className="drop-shadow-2xl text-center navlink"
+                  >
+                    Sing in
+                  </Link>
+                )}
               </SheetClose>
             </div>
           </SheetClose>
