@@ -7,6 +7,7 @@ import { Comment, Poem } from "@/components/PoemCard";
 import { formatDate } from "@/lib/utils";
 import LikeButton from "@/components/LikeButton";
 import View from "@/icons/View";
+import ShareButton from "@/components/ShareButton";
 
 const PoemPage = async ({ params }: { params: { id: string } }) => {
   const poem: Poem = await getPoem(params.id);
@@ -27,7 +28,7 @@ const PoemPage = async ({ params }: { params: { id: string } }) => {
           <p className="text-center text-Text border-b-2 border-Dark/80 pb-8">
             by {poem.author}
           </p>
-          <div className="flex flex-wrap gap-8 justify-center sm:justify-between mt-10">
+          <div className="flex flex-wrap gap-8 justify-center items-center sm:justify-between mt-10">
             <LikeButton
               poemId={poem._id.toString()}
               initialLikes={poem.likes}
@@ -36,7 +37,7 @@ const PoemPage = async ({ params }: { params: { id: string } }) => {
               <View />
               {poem.views} Views
             </span>
-
+            <ShareButton />
             <p>{poem.readingTime} Min of reading</p>
             <p className="">{formatDate(poem.date, true)}</p>
           </div>
