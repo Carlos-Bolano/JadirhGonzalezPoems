@@ -56,7 +56,7 @@ export async function POST(request: Request) {
 export async function GET() {
   try {
     await connectDB();
-    const poems = await Poem.find();
+    const poems = await Poem.find().sort({ createdAt: -1 });
     return NextResponse.json(poems);
   } catch (error) {
     if (error instanceof Error) {
