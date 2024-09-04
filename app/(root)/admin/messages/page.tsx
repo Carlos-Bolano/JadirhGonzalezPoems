@@ -1,10 +1,12 @@
 import Greeting from "@/components/greeting";
 import Message from "@/components/Message";
+import NoMessagesYet from "@/components/NoMessagesYet";
 import Input from "@/components/ui/Input";
 import { LinkButton } from "@/components/ui/LinkButton";
 import UserDropdown from "@/components/UserDropdown";
 import Search from "@/icons/Search";
 import { GetMessages } from "@/lib/actions/message.action";
+import Image from "next/image";
 import React from "react";
 
 export interface Message {
@@ -15,7 +17,7 @@ export interface Message {
 }
 
 const MessagesPage = async () => {
-  const Messages: Message[] = await GetMessages();
+  const Messages = (await GetMessages()) as Message[];
   return (
     <section className="container py-8">
       <header className="flex gap-4 flex-col md:flex-row md:justify-between items-center ">
@@ -33,7 +35,7 @@ const MessagesPage = async () => {
         </div>
       </header>
 
-      <section className="flex flex-col justify-between lg:flex-row gap-5 my-10">
+      <section className="flex flex-col-reverse items-center justify-between lg:flex-row gap-5 my-5">
         <div className="font-cagliostro">
           <Greeting />
           <p className="md:text-[20px] font-cagliostro text-center lg:text-start text-pretty text-Text md:max-w-xl md:m-auto ">
@@ -51,22 +53,29 @@ const MessagesPage = async () => {
             </LinkButton>
           </div>
         </div>
-        <aside className="flex flex-col justify-between items-center md:items-start gap-5 ">
-          <h2 className="text-4xl font-bold font-cormorant  text-center lg:text-start ">
-            Messages
-          </h2>
-          <div className="flex flex-col gap-5">
-            {Messages.map((message) => (
+        <Image src="/assets/messages.png" width={300} height={300} alt="404" />
+      </section>
+      <aside className="flex flex-col justify-between items-center lg:items-start gap-5 ">
+        <h2 className="text-4xl font-bold font-cormorant text-center lg:text-start ">
+          Messages
+        </h2>
+        <div className="flex flex-col gap-5">
+          {Messages.length > 0 ? (
+            Messages.map((message) => (
               <Message
                 key={message._id}
                 name={message.name}
                 email={message.email}
                 message={message.message}
               />
-            ))}
-          </div>
-        </aside>
-      </section>
+            ))
+          ) : (
+            <div>
+              <NoMessagesYet />
+            </div>
+          )}
+        </div>
+      </aside>
     </section>
   );
 };
