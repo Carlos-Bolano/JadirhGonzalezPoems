@@ -11,7 +11,7 @@ import { signOut } from "next-auth/react";
 import { LogOut } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 
-export function DropdownMenuDemo() {
+export default function UserDropdown() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
