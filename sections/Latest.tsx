@@ -11,8 +11,6 @@ const Latest = async () => {
     console.error("Failed to fetch poems:", error);
   }
   const latestPoems = poems.slice(0, 8);
-
-  //the problem here is that splice is a array method and when i build the array seems not to be a function
   return (
     <section className="container mt-10 flex flex-col gap-14 justify-center items-center">
       <header className="text-center">

@@ -13,9 +13,8 @@ import {
 import axios from "axios";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-
 import { toast } from "./ui/use-toast";
-import { Button } from "./ui/Button";
+import { Button } from "../components/ui/Button";
 
 export function DeletePoem({ poemId }: { poemId: string }) {
   const [loading, setLoading] = useState(false);

@@ -2,10 +2,11 @@
 import { FormEvent, useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { Button } from "@/components/ui/Button";
+
 import Input from "@/components/ui/Input";
 import Image from "next/image";
 import React from "react";
+import { Button } from "../../../components/ui/Button";
 
 const SingIn = () => {
   const [loading, setLoading] = useState(false);

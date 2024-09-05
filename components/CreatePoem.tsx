@@ -21,7 +21,7 @@ import {
   SelectValue,
 } from "./ui/select";
 import axios from "axios";
-import { Button } from "./ui/Button";
+import { Button } from "../components/ui/Button";
 import { useRouter } from "next/navigation";
 import { toast } from "./ui/use-toast";
 
