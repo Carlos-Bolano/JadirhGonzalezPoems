@@ -1,9 +1,9 @@
-import connectDB from "@/lib/mongoose";
-import User from "@/models/user";
 import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import mongoose from "mongoose";
-import { signupSchema } from "@/schemas/auth.schema";
+import connectDB from "../../../../lib/mongoose";
+import { signupSchema } from "../../../../schemas/auth.schema";
+import User from "../../../../models/user";
 
 export async function POST(request: Request) {
   try {

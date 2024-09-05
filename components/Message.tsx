@@ -1,5 +1,5 @@
 import React from "react";
-import IconMessage from "@/icons/Message";
+import IconMessage from "../icons/Message";
 
 interface MessageProps {
   name: string;

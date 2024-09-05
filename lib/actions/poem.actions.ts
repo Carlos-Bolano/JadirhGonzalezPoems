@@ -1,9 +1,9 @@
 "use server";
-import connectDB from "@/lib/mongoose";
-import PoemModel from "@/models/poem";
-import { CreatePoemSchema } from "@/schemas/poem.schema";
+import PoemModel from "../../models/poem";
 import { ObjectId } from "mongoose";
 import { NextResponse } from "next/server";
+import connectDB from "../mongoose";
+import { CreatePoemSchema } from "../../schemas/poem.schema";
 
 interface Comment {
   _id: ObjectId;

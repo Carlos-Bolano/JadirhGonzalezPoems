@@ -1,5 +1,5 @@
-import { LinkButton } from "@/components/ui/LinkButton";
 import Image from "next/image";
+import { LinkButton } from "../components/ui/LinkButton";
 
 export default function NotFound() {
   return (

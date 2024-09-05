@@ -1,6 +1,6 @@
-import PoemCard, { Poem } from "@/components/PoemCard";
-import { LinkButton } from "@/components/ui/LinkButton";
-import { getPoems } from "@/lib/actions/poem.actions";
+import PoemCard, { Poem } from "../components/PoemCard";
+import { LinkButton } from "../components/ui/LinkButton";
+import { getPoems } from "../lib/actions/poem.actions";
 
 const Latest = async () => {
   let poems: Poem[] = [];

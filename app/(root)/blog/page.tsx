@@ -1,19 +1,21 @@
 "use client";
-import PoemCard, { Poem } from "@/components/PoemCard";
-import HeaderBlog from "@/components/HeaderBlog";
+
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from "../../../components/ui/select";
 import { useState, useEffect } from "react";
-import Loader from "@/components/Loader";
-import Input from "@/components/ui/Input";
-import useFilteredPoems from "@/hooks/useFilteredPoems";
-import Search from "@/icons/Search";
+
 import axios from "axios";
+import useFilteredPoems from "../../../hooks/useFilteredPoems";
+import HeaderBlog from "../../../components/HeaderBlog";
+import Input from "../../../components/ui/Input";
+import Search from "../../../icons/Search";
+import Loader from "../../../components/Loader";
+import PoemCard, { Poem } from "../../../components/PoemCard";
 const BlogPage = () => {
   const [poems, setPoems] = useState<Poem[]>([]);
   const [loading, setLoading] = useState(true);

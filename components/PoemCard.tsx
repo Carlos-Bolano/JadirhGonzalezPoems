@@ -2,10 +2,9 @@
 import Link from "next/link";
 import React, { useState } from "react";
 import { formatDistanceStrict } from "date-fns";
-
-import View from "@/icons/View";
-import LikeButton from "@/components/LikeButton";
-import { incrementViews } from "@/lib/actions/poem.actions";
+import LikeButton from "./LikeButton";
+import View from "../icons/View";
+import { incrementViews } from "../lib/actions/poem.actions";
 
 export interface Comment {
   _id: number;

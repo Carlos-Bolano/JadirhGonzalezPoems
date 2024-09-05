@@ -1,8 +1,8 @@
-import Email from "@/icons/Email";
-import Instagram from "@/icons/Instagram";
-import Whatsapp from "@/icons/Whatsapp";
 import Link from "next/link";
 import React from "react";
+import Instagram from "../icons/Instagram";
+import Email from "../icons/Email";
+import Whatsapp from "../icons/Whatsapp";
 
 const Footer = () => {
   return (

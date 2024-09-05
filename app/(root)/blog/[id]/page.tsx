@@ -1,13 +1,13 @@
-import HeaderBlog from "@/components/HeaderBlog";
 import { CircleUserRound } from "lucide-react";
 import { notFound } from "next/navigation";
-import { CommentForm } from "@/components/CommentForm";
-import { getPoem } from "@/lib/actions/poem.actions";
-import { Comment, Poem } from "@/components/PoemCard";
-import { formatDate } from "@/lib/utils";
-import LikeButton from "@/components/LikeButton";
-import View from "@/icons/View";
-import ShareButton from "@/components/ShareButton";
+import { getPoem } from "../../../../lib/actions/poem.actions";
+import HeaderBlog from "../../../../components/HeaderBlog";
+import LikeButton from "../../../../components/LikeButton";
+import View from "../../../../icons/View";
+import ShareButton from "../../../../components/ShareButton";
+import { formatDate } from "../../../../lib/utils";
+import { CommentForm } from "../../../../components/CommentForm";
+import { Comment, Poem } from "../../../../components/PoemCard";
 
 const PoemPage = async ({ params }: { params: { id: string } }) => {
   const poem: Poem = await getPoem(params.id);

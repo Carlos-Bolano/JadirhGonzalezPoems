@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { Cagliostro, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import Providers from "@/components/Providers";
-import { Toaster } from "@/components/ui/toaster";
+import Providers from "../components/Providers";
+import Navbar from "../components/Navbar";
+import { Toaster } from "../components/ui/toaster";
+import Footer from "../components/Footer";
 
 const cagliostro = Cagliostro({
   weight: ["400"],

@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import AdminPoemCard from "@/components/AdminPoemCard";
-import { Poem } from "@/components/PoemCard";
+import { Poem } from "./PoemCard";
+import AdminPoemCard from "./AdminPoemCard";
 
 interface SearchablePoemsProps {
   poems: Poem[];

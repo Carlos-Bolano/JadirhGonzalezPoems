@@ -1,6 +1,6 @@
-import connectDB from "@/lib/mongoose";
-import Poem from "@/models/poem";
 import { NextRequest, NextResponse } from "next/server";
+import connectDB from "../../../../lib/mongoose";
+import Poem from "../../../../models/poem";
 
 export async function GET(
   req: NextRequest,

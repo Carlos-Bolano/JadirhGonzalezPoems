@@ -10,7 +10,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
+} from "./ui/dialog";
 import Input from "./ui/Input";
 import { useEffect, useState } from "react";
 import { toast } from "./ui/use-toast";

@@ -1,10 +1,9 @@
 "use server";
-
-import connectDB from "@/lib/mongoose";
-import Message from "@/models/message";
-import { CreateMessageSchema } from "@/schemas/message.schema";
 import mongoose from "mongoose";
 import { NextResponse } from "next/server";
+import connectDB from "../mongoose";
+import { CreateMessageSchema } from "../../schemas/message.schema";
+import Message from "../../models/message";
 
 export async function CreateMessage(request: Request) {
   try {

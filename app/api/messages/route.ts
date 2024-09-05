@@ -1,8 +1,8 @@
-import connectDB from "@/lib/mongoose";
 import { NextResponse } from "next/server";
 import mongoose from "mongoose";
-import { CreateMessageSchema } from "@/schemas/message.schema";
-import Message from "@/models/message";
+import Message from "../../../models/message";
+import { CreateMessageSchema } from "../../../schemas/message.schema";
+import connectDB from "../../../lib/mongoose";
 
 export async function POST(request: Request) {
   try {

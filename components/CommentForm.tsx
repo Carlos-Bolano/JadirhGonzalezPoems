@@ -3,18 +3,18 @@ import { useState } from "react";
 import { Button } from "./ui/Button";
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
+} from "./ui/dialog";
 import Input from "./ui/Input";
 import Textarea from "./ui/TextArea";
-import { commentPoem } from "@/lib/actions/poem.actions"; // Ajusta la ruta según sea necesario
 import { toast } from "./ui/use-toast";
 import { useRouter } from "next/navigation";
-import { DialogClose } from "@radix-ui/react-dialog";
+import { commentPoem } from "../lib/actions/poem.actions";
 
 export function CommentForm({ id }: { id: string }) {
   const [name, setName] = useState("");

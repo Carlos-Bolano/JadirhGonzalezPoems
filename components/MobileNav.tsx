@@ -6,10 +6,10 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@/components/ui/sheet";
-import { NavLinks } from "@/constants";
+} from "./ui/sheet";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
+import { NavLinks } from "../constants";
 
 const MobileNav = () => {
   const { status } = useSession();

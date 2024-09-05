@@ -1,11 +1,12 @@
 "use client";
-import { NavLinks } from "@/constants";
-import { cn } from "@/lib/utils";
+
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import MobileNav from "./MobileNav";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
+import { cn } from "../lib/utils";
+import { NavLinks } from "../constants";
 
 const Navbar = () => {
   const { status } = useSession();

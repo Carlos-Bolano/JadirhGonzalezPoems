@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import { Poem } from "@/components/PoemCard";
+import { Poem } from "../components/PoemCard";
 
 const normalizeText = (text: string) => {
   return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "");

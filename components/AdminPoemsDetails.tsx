@@ -2,10 +2,10 @@ import React from "react";
 import Greeting from "./greeting";
 import { CreatePoem } from "./CreatePoem";
 import MostPoemCard from "./MostPoemCard";
-import TotalAdminCard from "@/components/TotalAdminCard";
-import { getMostPoem } from "@/lib/actions/poem.actions";
+import TotalAdminCard from "./TotalAdminCard";
 import { LinkButton } from "./ui/LinkButton";
 import { Poem } from "./PoemCard";
+import { getMostPoem } from "../lib/actions/poem.actions";
 
 interface mostpoems {
   mostViewedPoem: Poem;

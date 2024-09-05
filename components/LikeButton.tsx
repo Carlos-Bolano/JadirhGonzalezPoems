@@ -1,8 +1,8 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import Heart from "@/icons/Heart";
-import { incrementLikes, decrementLikes } from "@/lib/actions/poem.actions";
 import { usePathname } from "next/navigation";
+import { decrementLikes, incrementLikes } from "../lib/actions/poem.actions";
+import Heart from "../icons/Heart";
 
 interface LikeButtonProps {
   poemId: string;

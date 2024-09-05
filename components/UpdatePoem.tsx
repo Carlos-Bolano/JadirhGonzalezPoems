@@ -7,7 +7,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
+} from "./ui/dialog";
 import { useState } from "react";
 import Input from "./ui/Input";
 import Textarea from "./ui/TextArea";

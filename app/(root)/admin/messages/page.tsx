@@ -1,13 +1,13 @@
-import Greeting from "@/components/greeting";
-import Message from "@/components/Message";
-import NoMessagesYet from "@/components/NoMessagesYet";
-import Input from "@/components/ui/Input";
-import { LinkButton } from "@/components/ui/LinkButton";
-import UserDropdown from "@/components/UserDropdown";
-import Search from "@/icons/Search";
-import { GetMessages } from "@/lib/actions/message.action";
 import Image from "next/image";
 import React from "react";
+import UserDropdown from "../../../../components/UserDropdown";
+import { GetMessages } from "../../../../lib/actions/message.action";
+import Search from "../../../../icons/Search";
+import Input from "../../../../components/ui/Input";
+import Greeting from "../../../../components/greeting";
+import { LinkButton } from "../../../../components/ui/LinkButton";
+import Message from "../../../../components/Message";
+import NoMessagesYet from "../../../../components/NoMessagesYet";
 
 type Message = {
   _id: string;
