@@ -11,7 +11,7 @@ interface SearchablePoemsProps {
 const SearchablePoems = ({ poems }: SearchablePoemsProps) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [activeTab, setActiveTab] = useState("all");
-  const [filteredPoems, setFilteredPoems] = useState<Poem[]>(poems);
+  const [filteredPoems, setFilteredPoems] = useState<Poem[]>([]);
 
   const normalizeText = (text: string) => {
     return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "");

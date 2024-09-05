@@ -9,12 +9,12 @@ import { GetMessages } from "@/lib/actions/message.action";
 import Image from "next/image";
 import React from "react";
 
-export interface Message {
+type Message = {
   _id: string;
   name: string;
   email: string;
   message: string;
-}
+};
 
 const MessagesPage = async () => {
   const Messages = (await GetMessages()) as Message[];

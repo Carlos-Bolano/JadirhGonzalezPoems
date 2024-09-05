@@ -3,12 +3,17 @@ import { Poem } from "@/components/PoemCard";
 import { getPoems } from "@/lib/actions/poem.actions";
 import Input from "@/components/ui/Input";
 import Search from "@/icons/Search";
-import SearchablePoems from "@/components/SearchablePoems";
 import AdminPoemsDetails from "@/components/AdminPoemsDetails";
 import UserDropdown from "@/components/UserDropdown";
+import SearchablePoems from "@/components/SearchablePoems";
 
 const AdminPage = async () => {
-  const Poems: Poem[] = await getPoems();
+  let Poems: Poem[] = [];
+  try {
+    Poems = await getPoems();
+  } catch (error) {
+    console.error("Failed to fetch Poems:", error);
+  }
   const totalPoems = Poems.length;
 
   return (

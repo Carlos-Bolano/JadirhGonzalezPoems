@@ -5,6 +5,15 @@ import MostPoemCard from "./MostPoemCard";
 import TotalAdminCard from "@/components/TotalAdminCard";
 import { getMostPoem } from "@/lib/actions/poem.actions";
 import { LinkButton } from "./ui/LinkButton";
+import { Poem } from "./PoemCard";
+
+interface mostpoems {
+  mostViewedPoem: Poem;
+  mostLikedPoem: Poem;
+  mostCommentedPoem: Poem;
+  totalViews: number;
+  totalLikes: number;
+}
 
 const AdminPoemsDetails = async ({ totalPoems }: { totalPoems: number }) => {
   const mostPoem = await getMostPoem();
@@ -14,7 +23,8 @@ const AdminPoemsDetails = async ({ totalPoems }: { totalPoems: number }) => {
     mostCommentedPoem,
     totalViews,
     totalLikes,
-  } = mostPoem;
+  } = (await mostPoem) as mostpoems;
+
   return (
     <section className="flex flex-col justify-between lg:flex-row gap-5">
       <div className="font-cagliostro">
@@ -32,27 +42,9 @@ const AdminPoemsDetails = async ({ totalPoems }: { totalPoems: number }) => {
       </div>
       <aside className="flex flex-col justify-between items-center md:justify-normal lg:items-end gap-5 ">
         <div className="flex flex-col md:flex-row-reverse gap-5">
-          <MostPoemCard
-            title={mostViewedPoem.title}
-            content={mostViewedPoem.content}
-            count={mostViewedPoem.views}
-            href={"/blog/" + mostViewedPoem._id}
-            tag="Most Viewed"
-          />
-          <MostPoemCard
-            title={mostLikedPoem.title}
-            content={mostLikedPoem.content}
-            count={mostLikedPoem.likes}
-            href={"/blog/" + mostLikedPoem._id}
-            tag="Most Liked"
-          />
-          <MostPoemCard
-            title={mostCommentedPoem.title}
-            content={mostCommentedPoem.content}
-            count={mostCommentedPoem.comments.length}
-            href={"/blog/" + mostCommentedPoem._id}
-            tag="Most Commented"
-          />
+          <MostPoemCard poem={mostViewedPoem} tag="Most Viewed" />
+          <MostPoemCard poem={mostLikedPoem} tag="Most Liked" />
+          <MostPoemCard poem={mostCommentedPoem} tag="Most Commented" />
         </div>
         <div className="flex flex-col md:flex-row-reverse gap-5">
           <TotalAdminCard title="Poems" count={totalPoems} />

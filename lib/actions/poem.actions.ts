@@ -1,33 +1,63 @@
 "use server";
-
 import connectDB from "@/lib/mongoose";
-import Poem from "@/models/poem";
+import PoemModel from "@/models/poem";
 import { CreatePoemSchema } from "@/schemas/poem.schema";
+import { ObjectId } from "mongoose";
 import { NextResponse } from "next/server";
 
-export async function getPoems() {
+interface Comment {
+  _id: ObjectId;
+  text: string;
+  author: string;
+}
+
+interface Poem {
+  _id: ObjectId;
+  title: string;
+  content: string;
+  readingTime: number;
+  author: string;
+  likes: number;
+  views: number;
+  date: Date;
+  comments: Comment[];
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export async function getPoems(): Promise<any[]> {
   try {
     await connectDB();
-    const poems = await Poem.find().sort({ createdAt: -1 });
-    return JSON.parse(JSON.stringify(poems));
+    const poems = await PoemModel.find().sort({ createdAt: -1 }).lean<Poem[]>();
+    const serializablePoems = poems.map((poem) => ({
+      _id: poem._id.toString(),
+      title: poem.title,
+      content: poem.content,
+      readingTime: poem.readingTime,
+      author: poem.author,
+      likes: poem.likes,
+      views: poem.views,
+      date: poem.date ? poem.date.toISOString() : null,
+      comments: poem.comments.map((comment) => ({
+        _id: comment._id.toString(),
+        text: comment.text,
+        author: comment.author,
+      })),
+      createdAt: poem.createdAt.toISOString(),
+      updatedAt: poem.updatedAt.toISOString(),
+    }));
+
+    return serializablePoems;
   } catch (error) {
-    if (error instanceof Error) {
-      return NextResponse.json(
-        {
-          message: error.message,
-        },
-        {
-          status: 500,
-        }
-      );
-    }
+    console.error("Error fetching poems:", error);
+    return [];
   }
 }
 
 export async function getPoem(id: string) {
   try {
     await connectDB();
-    const poem = await Poem.findById(id);
+    const poem = await PoemModel.findById(id);
     return JSON.parse(JSON.stringify(poem));
   } catch (error) {
     if (error instanceof Error) {
@@ -55,7 +85,7 @@ export async function createPoem(data: any) {
     }
 
     const { title, content, readingTime } = result.data;
-    const newPoem = new Poem({
+    const newPoem = new PoemModel({
       title,
       content,
       readingTime,
@@ -81,29 +111,8 @@ export async function createPoem(data: any) {
 export async function updatePoem(id: string, data: any) {
   try {
     await connectDB();
-    const poem = await Poem.findByIdAndUpdate(id, data, { new: true });
+    const poem = await PoemModel.findByIdAndUpdate(id, data, { new: true });
     return JSON.parse(JSON.stringify(poem));
-  } catch (error) {
-    if (error instanceof Error) {
-      return NextResponse.json(
-        {
-          message: error.message,
-        },
-        {
-          status: 500,
-        }
-      );
-    }
-  }
-}
-
-export async function getRecentPoems(limit: number = 8) {
-  try {
-    await connectDB();
-
-    const poems = await Poem.find().sort({ createdAt: -1 }).limit(limit);
-
-    return JSON.parse(JSON.stringify(poems));
   } catch (error) {
     if (error instanceof Error) {
       return NextResponse.json(
@@ -121,15 +130,15 @@ export async function getRecentPoems(limit: number = 8) {
 export async function getMostPoem() {
   try {
     await connectDB();
-    const mostViewedPoem = await Poem.findOne().sort({ views: -1 }).exec();
-    const mostLikedPoem = await Poem.findOne().sort({ likes: -1 }).exec();
-    const mostCommentedPoem = await Poem.aggregate([
+    const mostViewedPoem = await PoemModel.findOne().sort({ views: -1 }).exec();
+    const mostLikedPoem = await PoemModel.findOne().sort({ likes: -1 }).exec();
+    const mostCommentedPoem = await PoemModel.aggregate([
       { $addFields: { commentsCount: { $size: "$comments" } } },
       { $sort: { commentsCount: -1 } },
       { $limit: 1 },
     ]);
 
-    const totalStats = await Poem.aggregate([
+    const totalStats = await PoemModel.aggregate([
       {
         $group: {
           _id: null,
@@ -149,7 +158,7 @@ export async function getMostPoem() {
       totalComments: totalStats[0]?.totalComments || 0,
     };
 
-    return JSON.parse(JSON.stringify(poems));
+    return poems;
   } catch (error) {
     if (error instanceof Error) {
       return NextResponse.json(
@@ -167,7 +176,7 @@ export async function getMostPoem() {
 export async function incrementViews(poemId: string) {
   try {
     await connectDB();
-    const poem = await Poem.findByIdAndUpdate(
+    const poem = await PoemModel.findByIdAndUpdate(
       poemId,
       { $inc: { views: 1 } },
       { new: true }
@@ -183,7 +192,7 @@ export async function incrementLikes(poemId: string) {
   try {
     await connectDB();
 
-    const poem = await Poem.findById(poemId);
+    const poem = await PoemModel.findById(poemId);
 
     if (!poem) {
       throw new Error("Poem not found");
@@ -203,7 +212,7 @@ export async function decrementLikes(poemId: string) {
   try {
     await connectDB();
 
-    const poem = await Poem.findById(poemId);
+    const poem = await PoemModel.findById(poemId);
 
     if (!poem) {
       throw new Error("Poem not found");
@@ -228,7 +237,7 @@ export async function commentPoem(
 ) {
   try {
     await connectDB();
-    const poem = await Poem.findById(poemId);
+    const poem = await PoemModel.findById(poemId);
 
     if (!poem) {
       throw new Error("Poem not found");

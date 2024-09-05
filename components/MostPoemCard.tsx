@@ -1,33 +1,28 @@
 import Link from "next/link";
 import React from "react";
+import { Poem } from "./PoemCard";
 
 interface MostPoemCardProps {
-  title: string;
+  poem: Poem;
   tag: string;
-  content: string;
-  count: number;
-  href: string;
 }
 
-const MostPoemCard = ({
-  title,
-  content,
-  count,
-  href,
-  tag,
-}: MostPoemCardProps) => {
+const MostPoemCard = ({ poem, tag }: MostPoemCardProps) => {
   const getTruncatedText = (text: string, maxLength: number) => {
     if (text.length <= maxLength) return text;
     return text.slice(0, maxLength) + "...";
   };
+
+  if (!poem) return null;
+  const { title, content, views, _id } = poem;
   return (
     <Link
-      href={href}
+      href={"/blog/" + _id}
       className="border-2 border-Dark/50 p-3 max-w-[300px] max-h-flex flex-col gap-1 transition-all duration-300 hover:border-Dark hover:shadow-2xl"
     >
       <header className="flex justify-between items-center gap-4">
         <span className="font-cormorant flex justify-self-end">{tag}</span>
-        <span className="font-cagliostro text-Dark font-bold">{count}</span>
+        <span className="font-cagliostro text-Dark font-bold">{views}</span>
       </header>
       <div className="flex flex-col">
         <h4 className="font-cormorant text-xl ">

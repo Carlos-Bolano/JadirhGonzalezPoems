@@ -1,17 +1,18 @@
 import PoemCard, { Poem } from "@/components/PoemCard";
 import { LinkButton } from "@/components/ui/LinkButton";
-import { getRecentPoems } from "@/lib/actions/poem.actions";
-import React from "react";
+import { getPoems } from "@/lib/actions/poem.actions";
 
 const Latest = async () => {
   let poems: Poem[] = [];
 
   try {
-    poems = await getRecentPoems();
+    poems = await getPoems();
   } catch (error) {
     console.error("Failed to fetch poems:", error);
   }
+  const latestPoems = poems.slice(0, 8);
 
+  //the problem here is that splice is a array method and when i build the array seems not to be a function
   return (
     <section className="container mt-10 flex flex-col gap-14 justify-center items-center">
       <header className="text-center">
@@ -25,7 +26,7 @@ const Latest = async () => {
         </p>
       </header>
       <section className="cards">
-        {poems.map((poem: Poem) => (
+        {latestPoems.map((poem) => (
           <PoemCard key={poem._id} poem={poem} href={`/blog/${poem._id}`} />
         ))}
       </section>
