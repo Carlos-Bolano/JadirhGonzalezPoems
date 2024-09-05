@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import Input from "@/components/ui/Input";
 import Image from "next/image";
 import React from "react";
-import { Button } from "../../../components/ui/Button";
+import { Button } from "@/components/ui/Button";
 
 const SingIn = () => {
   const [loading, setLoading] = useState(false);

@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import Input from "./ui/Input";
 import Textarea from "./ui/TextArea";
-import { Button } from "../components/ui/Button";
+import { Button } from "./ui/Button";
 import axios from "axios";
 import { toast } from "./ui/use-toast";
 
