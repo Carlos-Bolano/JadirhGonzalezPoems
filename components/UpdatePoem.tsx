@@ -83,7 +83,7 @@ export function UpdatePoem({ poemId }: { poemId: string }) {
         toast({
           description: "Your poem has been updated.",
         });
-        router.refresh();
+        window.location.reload();
       }
     } catch (error) {
       console.error("Failed to update poem", error);
