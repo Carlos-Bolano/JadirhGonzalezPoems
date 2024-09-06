@@ -1,21 +1,45 @@
-import AdminPoemsDetails from "../../../components/AdminPoemsDetails";
+"use client";
 import { CreatePoem } from "../../../components/CreatePoem";
 import { Poem } from "../../../components/PoemCard";
-import SearchablePoems from "../../../components/SearchablePoems";
 import Input from "../../../components/ui/Input";
 import UserDropdown from "../../../components/UserDropdown";
 import Search from "../../../icons/Search";
-import { getPoems } from "../../../lib/actions/poem.actions";
+import axios from "axios";
+import useFilteredPoems from "../../../hooks/useFilteredPoems";
+import { useEffect, useState } from "react";
+import AdminPoemCard from "components/AdminPoemCard";
+import Loader from "components/Loader";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../../../components/ui/select";
+import AdminPoemsDetails from "components/AdminPoemsDetails";
 
-const AdminPage = async () => {
-  let Poems: Poem[] = [];
-  try {
-    Poems = await getPoems();
-  } catch (error) {
-    console.error("Failed to fetch Poems:", error);
-  }
-  const totalPoems = Poems.length;
+const AdminPage = () => {
+  const [poems, setPoems] = useState<Poem[]>([]);
+  const [loading, setLoading] = useState(true);
 
+  const getPoems = async () => {
+    const res = await axios.get("/api/poems");
+    const data = await res.data;
+    setLoading(false);
+    setPoems(data);
+  };
+
+  useEffect(() => {
+    getPoems();
+  }, []);
+
+  const {
+    poems: filteredPoems,
+    filter,
+    searchQuery,
+    handleFilterChange,
+    handleSearchChange,
+  } = useFilteredPoems(poems);
   return (
     <section className="container py-8">
       <header className="flex flex-col md:flex-row md:justify-between items-center gap-4 pb-8">
@@ -28,39 +52,44 @@ const AdminPage = async () => {
             name="search"
             placeholder="Search Poems..."
             className="w-[300px] "
-            id="searchInput"
+            value={searchQuery}
+            onChange={handleSearchChange}
           />
         </div>
       </header>
-      <AdminPoemsDetails totalPoems={totalPoems} />
+      <AdminPoemsDetails />
       <section className="mt-20">
         <div className="flex justify-center items-center flex-wrap-reverse lg:justify-between mb-10 gap-4">
-          <div className="flex space-x-4">
-            <button
-              data-tab="all"
-              className="tab-button border-2 border-Dark/50 py-2 px-6"
-            >
-              All Poems
-            </button>
-            <button
-              data-tab="MostPopular"
-              className="tab-button border-2 border-Dark/50 py-2 px-6"
-            >
-              Most Popular
-            </button>
-            <button
-              data-tab="MostLiked"
-              className="tab-button border-2 border-Dark/50 py-2 px-6"
-            >
-              Most Liked
-            </button>
-          </div>
+          <Select onValueChange={handleFilterChange}>
+            <SelectTrigger className="w-[180px]">
+              <SelectValue placeholder="All Poems" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="All">All Poems</SelectItem>
+              <SelectItem value="MostSeen">Most Popular</SelectItem>
+              <SelectItem value="MostLiked">Most liked</SelectItem>
+              <SelectItem value="Favorite">My Favorites</SelectItem>
+            </SelectContent>
+          </Select>
           <span className="hidden lg:block">
             Edit your poems or write down a new one!
           </span>
           <CreatePoem />
         </div>
-        <SearchablePoems poems={Poems} />
+        {/* <SearchablePoems poems={Poems} /> */}
+        <div className="cards">
+          {loading ? (
+            <Loader />
+          ) : (
+            filteredPoems.map((poem: Poem) => (
+              <AdminPoemCard
+                key={poem._id}
+                poem={poem}
+                href={`/blog/${poem._id}`}
+              />
+            ))
+          )}
+        </div>
       </section>
     </section>
   );

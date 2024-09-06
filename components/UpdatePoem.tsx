@@ -22,7 +22,6 @@ import {
 } from "./ui/select";
 import axios from "axios";
 import { Button } from "./ui/Button";
-import { useRouter } from "next/navigation";
 import { toast } from "./ui/use-toast";
 
 export function UpdatePoem({ poemId }: { poemId: string }) {
@@ -33,8 +32,6 @@ export function UpdatePoem({ poemId }: { poemId: string }) {
     readingTime: "",
   });
   const [dialogOpen, setDialogOpen] = useState(false);
-
-  const router = useRouter();
 
   const fetchPoemData = async () => {
     try {
@@ -83,7 +80,7 @@ export function UpdatePoem({ poemId }: { poemId: string }) {
         toast({
           description: "Your poem has been updated.",
         });
-        router.refresh();
+        window.location.reload();
       }
     } catch (error) {
       console.error("Failed to update poem", error);

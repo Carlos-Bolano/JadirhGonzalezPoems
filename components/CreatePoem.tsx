@@ -22,13 +22,11 @@ import {
 } from "./ui/select";
 import axios from "axios";
 import { Button } from "./ui/Button";
-import { useRouter } from "next/navigation";
 import { toast } from "./ui/use-toast";
 
 export function CreatePoem() {
   const [loading, setLoading] = useState(false);
 
-  const router = useRouter();
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
@@ -46,7 +44,7 @@ export function CreatePoem() {
       toast({
         description: "Your poem has been created.",
       });
-      router.refresh();
+      window.location.reload();
     }
   };
   return (

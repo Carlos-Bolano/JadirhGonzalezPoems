@@ -47,7 +47,7 @@ export async function GET() {
   try {
     await connectDB();
     const messages = await Message.find().sort({ createdAt: -1 });
-    return NextResponse.json({ messages });
+    return NextResponse.json(messages);
   } catch (error) {
     console.error("Failed to fetch messages:", error);
     return NextResponse.json({ message: "Server error" }, { status: 500 });

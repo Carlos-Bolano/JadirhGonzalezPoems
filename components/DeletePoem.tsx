@@ -12,20 +12,18 @@ import {
 } from "./ui/alert-dialog";
 import axios from "axios";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { toast } from "./ui/use-toast";
 import { Button } from "./ui/Button";
 
 export function DeletePoem({ poemId }: { poemId: string }) {
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
 
   const handleDelete = async () => {
     setLoading(true);
     try {
       const res = await axios.delete(`/api/poems/${poemId}`);
       if (res.status === 200) {
-        router.refresh();
+        window.location.reload();
         return toast({
           description: "Your poem has been deleted.",
         });

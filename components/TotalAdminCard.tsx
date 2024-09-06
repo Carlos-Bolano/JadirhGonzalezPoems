@@ -1,11 +1,16 @@
 import React from "react";
+import Loader from "./Loader";
 
 interface TotalCardProps {
   title: string;
   count: number;
 }
 
-const TotalCard = ({ title, count }: TotalCardProps) => {
+const TotalAdminCard: React.FC<{
+  title: string;
+  count: number;
+  loading: boolean;
+}> = ({ title, count, loading }) => {
   return (
     <div className="flex justify-between items-center gap-8 max-w-[300px] border-2 border-Dark/90 p-3">
       <div className="">
@@ -14,10 +19,10 @@ const TotalCard = ({ title, count }: TotalCardProps) => {
       </div>
 
       <span className="text-Dark text-4xl font-cagliostro block mt-3">
-        {count}
+        {loading ? <Loader /> : count}
       </span>
     </div>
   );
 };
 
-export default TotalCard;
+export default TotalAdminCard;

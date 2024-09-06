@@ -1,29 +1,39 @@
-import React from "react";
-import Greeting from "./greeting";
+"use client";
+import React, { useState, useEffect } from "react";
 import { CreatePoem } from "./CreatePoem";
-import MostPoemCard from "./MostPoemCard";
-import TotalAdminCard from "./TotalAdminCard";
 import { LinkButton } from "./ui/LinkButton";
 import { Poem } from "./PoemCard";
-import { getMostPoem } from "../lib/actions/poem.actions";
+import Greeting from "./greeting";
+import TotalAdminCard from "./TotalAdminCard";
+import MostPoemCard from "./MostPoemCard";
 
-interface mostpoems {
-  mostViewedPoem: Poem;
-  mostLikedPoem: Poem;
-  mostCommentedPoem: Poem;
-  totalViews: number;
-  totalLikes: number;
-}
+const AdminPoemsDetails = () => {
+  const [mostPoems, setMostPoems] = useState({
+    mostViewedPoem: {} as Poem,
+    mostLikedPoem: {} as Poem,
+    mostCommentedPoem: {} as Poem,
+    totalViews: 0,
+    totalLikes: 0,
+    totalPoems: 0,
+  });
+  const [loading, setLoading] = useState(true);
 
-const AdminPoemsDetails = async ({ totalPoems }: { totalPoems: number }) => {
-  const mostPoem = await getMostPoem();
-  const {
-    mostViewedPoem,
-    mostLikedPoem,
-    mostCommentedPoem,
-    totalViews,
-    totalLikes,
-  } = (await mostPoem) as mostpoems;
+  useEffect(() => {
+    const fetchMostPoem = async () => {
+      const res = await fetch("/api/poems/most");
+      const data = await res.json();
+      setMostPoems({
+        mostViewedPoem: data.mostViewedPoem,
+        mostLikedPoem: data.mostLikedPoem,
+        mostCommentedPoem: data.mostCommentedPoem,
+        totalViews: data.totalViews,
+        totalLikes: data.totalLikes,
+        totalPoems: data.totalPoems,
+      });
+      setLoading(false);
+    };
+    fetchMostPoem();
+  }, []);
 
   return (
     <section className="flex flex-col justify-between lg:flex-row gap-5">
@@ -42,14 +52,38 @@ const AdminPoemsDetails = async ({ totalPoems }: { totalPoems: number }) => {
       </div>
       <aside className="flex flex-col justify-between items-center md:justify-normal lg:items-end gap-5 ">
         <div className="flex flex-col md:flex-row-reverse gap-5">
-          <MostPoemCard poem={mostViewedPoem} tag="Most Viewed" />
-          <MostPoemCard poem={mostLikedPoem} tag="Most Liked" />
-          <MostPoemCard poem={mostCommentedPoem} tag="Most Commented" />
+          <MostPoemCard
+            loading={loading}
+            poem={mostPoems.mostViewedPoem}
+            tag="Most Viewed"
+          />
+          <MostPoemCard
+            loading={loading}
+            poem={mostPoems.mostLikedPoem}
+            tag="Most Liked"
+          />
+          <MostPoemCard
+            loading={loading}
+            poem={mostPoems.mostCommentedPoem}
+            tag="Most Commented"
+          />
         </div>
         <div className="flex flex-col md:flex-row-reverse gap-5">
-          <TotalAdminCard title="Poems" count={totalPoems} />
-          <TotalAdminCard title="Likes" count={totalLikes} />
-          <TotalAdminCard title="Views" count={totalViews} />
+          <TotalAdminCard
+            loading={loading}
+            title="Poems"
+            count={mostPoems.totalPoems}
+          />
+          <TotalAdminCard
+            loading={loading}
+            title="Likes"
+            count={mostPoems.totalLikes}
+          />
+          <TotalAdminCard
+            loading={loading}
+            title="Views"
+            count={mostPoems.totalViews}
+          />
         </div>
       </aside>
     </section>

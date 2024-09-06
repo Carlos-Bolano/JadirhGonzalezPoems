@@ -1,16 +1,23 @@
+"use client";
+import { useEffect, useState } from "react";
 import PoemCard, { Poem } from "../components/PoemCard";
 import { LinkButton } from "../components/ui/LinkButton";
-import { getPoems } from "../lib/actions/poem.actions";
+import Loader from "components/Loader";
 
-const Latest = async () => {
-  let poems: Poem[] = [];
+const Latest = () => {
+  const [poems, setPoems] = useState<Poem[]>([]);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    const fetchPoems = async () => {
+      const res = await fetch("/api/poems");
+      const data = await res.json();
+      setPoems(data);
+      setLoading(false);
+    };
+    fetchPoems();
+  }, []);
+  const latestPoems = [...poems].slice(0, 8);
 
-  try {
-    poems = await getPoems();
-  } catch (error) {
-    console.error("Failed to fetch poems:", error);
-  }
-  const latestPoems = poems.slice(0, 8);
   return (
     <section className="container mt-10 flex flex-col gap-14 justify-center items-center">
       <header className="text-center">
@@ -24,9 +31,13 @@ const Latest = async () => {
         </p>
       </header>
       <section className="cards">
-        {latestPoems.map((poem) => (
-          <PoemCard key={poem._id} poem={poem} href={`/blog/${poem._id}`} />
-        ))}
+        {loading ? (
+          <Loader />
+        ) : (
+          latestPoems.map((poem) => (
+            <PoemCard key={poem._id} poem={poem} href={`/blog/${poem._id}`} />
+          ))
+        )}
       </section>
       <div>
         <LinkButton

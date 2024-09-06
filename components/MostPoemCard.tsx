@@ -1,18 +1,17 @@
 import Link from "next/link";
 import React from "react";
 import { Poem } from "./PoemCard";
+import Loader from "./Loader";
 
-interface MostPoemCardProps {
-  poem: Poem;
-  tag: string;
-}
-
-const MostPoemCard = ({ poem, tag }: MostPoemCardProps) => {
-  const getTruncatedText = (text: string, maxLength: number) => {
-    if (text.length <= maxLength) return text;
+const MostPoemCard: React.FC<{ poem: Poem; tag: string; loading: boolean }> = ({
+  poem,
+  tag,
+  loading,
+}) => {
+  const getTruncatedText = (text: string | undefined, maxLength: number) => {
+    if (text === undefined || text.length <= maxLength) return text;
     return text.slice(0, maxLength) + "...";
   };
-
   if (!poem) return null;
   const { title, content, views, _id } = poem;
   return (
@@ -25,12 +24,18 @@ const MostPoemCard = ({ poem, tag }: MostPoemCardProps) => {
         <span className="font-cagliostro text-Dark font-bold">{views}</span>
       </header>
       <div className="flex flex-col">
-        <h4 className="font-cormorant text-xl ">
-          {getTruncatedText(title, 25)}
-        </h4>
-        <p className="font-cagliostro text-sm">
-          {getTruncatedText(content, 30)}
-        </p>
+        {loading ? (
+          <Loader />
+        ) : (
+          <>
+            <h4 className="font-cormorant text-xl ">
+              {getTruncatedText(title, 25)}
+            </h4>
+            <p className="font-cagliostro text-sm">
+              {getTruncatedText(content, 30)}
+            </p>
+          </>
+        )}
       </div>
     </Link>
   );

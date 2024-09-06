@@ -1,7 +1,7 @@
+"use client";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect } from "react";
 import UserDropdown from "../../../../components/UserDropdown";
-import { GetMessages } from "../../../../lib/actions/message.action";
 import Search from "../../../../icons/Search";
 import Input from "../../../../components/ui/Input";
 import Greeting from "../../../../components/greeting";
@@ -16,8 +16,16 @@ type Message = {
   message: string;
 };
 
-const MessagesPage = async () => {
-  const Messages = (await GetMessages()) as Message[];
+const MessagesPage = () => {
+  const [messages, setMessages] = React.useState<Message[]>([]);
+  useEffect(() => {
+    const fetchMessages = async () => {
+      const res = await fetch("/api/messages");
+      const data = await res.json();
+      setMessages(data);
+    };
+    fetchMessages();
+  }, []);
   return (
     <section className="container py-8">
       <header className="flex gap-4 flex-col md:flex-row md:justify-between items-center ">
@@ -60,8 +68,8 @@ const MessagesPage = async () => {
           Messages
         </h2>
         <div className="flex flex-col gap-5">
-          {Messages.length > 0 ? (
-            Messages.map((message) => (
+          {messages.length > 0 ? (
+            messages.map((message) => (
               <Message
                 key={message._id}
                 name={message.name}
