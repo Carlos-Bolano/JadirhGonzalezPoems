@@ -25,7 +25,7 @@ export function DeletePoem({ poemId }: { poemId: string }) {
     try {
       const res = await axios.delete(`/api/poems/${poemId}`);
       if (res.status === 200) {
-        window.location.reload();
+        router.refresh();
         return toast({
           description: "Your poem has been deleted.",
         });

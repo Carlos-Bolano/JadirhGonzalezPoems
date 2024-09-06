@@ -46,7 +46,7 @@ export function CreatePoem() {
       toast({
         description: "Your poem has been created.",
       });
-      window.location.reload();
+      router.refresh();
     }
   };
   return (
