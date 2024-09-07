@@ -67,7 +67,7 @@ export function CreatePoem() {
             label="Title of Poem"
             name="title"
             type="text"
-            placeholder="love and other drugs of life"
+            placeholder="Here is the title of your poem"
             required
           />
           <Textarea
@@ -75,7 +75,7 @@ export function CreatePoem() {
             label="Content of Poem"
             name="content"
             rows={5}
-            placeholder="love and other drugs of life"
+            placeholder="Here is the content of your poem"
             required
           />
           <div className="mt-4 flex flex-wrap gap-4 justify-between">
