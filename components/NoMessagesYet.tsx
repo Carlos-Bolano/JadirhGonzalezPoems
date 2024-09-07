@@ -14,7 +14,7 @@ const NoMessagesYet = () => {
           No Messages Yet
         </h2>
         <p className="md:text-[20px] font-cagliostro text-pretty text-Text mt-4 max-w-[530px]">
-          Be the first to send a message!
+          Wait for your first message!
         </p>
       </div>
     </article>
