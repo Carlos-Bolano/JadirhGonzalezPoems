@@ -19,20 +19,19 @@ const AdminPoemsDetails = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchMostPoem = async () => {
-      const res = await fetch("/api/poems/most", { cache: "no-store" });
-      const data = await res.json();
-      setMostPoems({
-        mostViewedPoem: data.mostViewedPoem,
-        mostLikedPoem: data.mostLikedPoem,
-        mostCommentedPoem: data.mostCommentedPoem,
-        totalViews: data.totalViews,
-        totalLikes: data.totalLikes,
-        totalPoems: data.totalPoems,
+    fetch("/api/poems/most", { cache: "no-store" }).then((res) => {
+      res.json().then((data) => {
+        setMostPoems({
+          mostViewedPoem: data.mostViewedPoem,
+          mostLikedPoem: data.mostLikedPoem,
+          mostCommentedPoem: data.mostCommentedPoem,
+          totalViews: data.totalViews,
+          totalLikes: data.totalLikes,
+          totalPoems: data.totalPoems,
+        });
+        setLoading(false);
       });
-      setLoading(false);
-    };
-    fetchMostPoem();
+    });
   }, []);
 
   return (
