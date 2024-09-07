@@ -1,5 +1,6 @@
+"use client";
 import Link from "next/link";
-import React from "react";
+import React, { use } from "react";
 import { Poem } from "./PoemCard";
 import Loader from "./Loader";
 
@@ -13,7 +14,21 @@ const MostPoemCard: React.FC<{ poem: Poem; tag: string; loading: boolean }> = ({
     return text.slice(0, maxLength) + "...";
   };
   if (!poem) return null;
-  const { title, content, views, _id } = poem;
+  const { title, content, views, likes, comments = [], _id } = poem;
+
+  let metric;
+  switch (tag) {
+    case "Most Commented":
+      metric = comments.length;
+      break;
+    case "Most Liked":
+      metric = likes;
+      break;
+    default:
+      metric = views;
+      break;
+  }
+
   return (
     <Link
       href={"/blog/" + _id}
@@ -21,7 +36,7 @@ const MostPoemCard: React.FC<{ poem: Poem; tag: string; loading: boolean }> = ({
     >
       <header className="flex justify-between items-center gap-4">
         <span className="font-cormorant flex justify-self-end">{tag}</span>
-        <span className="font-cagliostro text-Dark font-bold">{views}</span>
+        <span className="font-cagliostro text-Dark font-bold">{metric}</span>
       </header>
       <div className="flex flex-col">
         {loading ? (

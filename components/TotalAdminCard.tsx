@@ -1,11 +1,6 @@
+"use client";
 import React from "react";
 import Loader from "./Loader";
-
-interface TotalCardProps {
-  title: string;
-  count: number;
-}
-
 const TotalAdminCard: React.FC<{
   title: string;
   count: number;

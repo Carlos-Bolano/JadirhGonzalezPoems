@@ -19,8 +19,15 @@ const AdminPoemsDetails = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("/api/poems/most", { cache: "no-store" }).then((res) => {
-      res.json().then((data) => {
+    fetch("/api/poems/most", { cache: "no-store" })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return res.json();
+      })
+      .then((data) => {
+        console.log("Data fetched:", data);
         setMostPoems({
           mostViewedPoem: data.mostViewedPoem,
           mostLikedPoem: data.mostLikedPoem,
@@ -30,8 +37,11 @@ const AdminPoemsDetails = () => {
           totalPoems: data.totalPoems,
         });
         setLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+        setLoading(false);
       });
-    });
   }, []);
 
   return (
