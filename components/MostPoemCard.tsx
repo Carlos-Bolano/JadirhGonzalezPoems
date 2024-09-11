@@ -1,14 +1,8 @@
-"use client";
 import Link from "next/link";
-import React, { use } from "react";
 import { Poem } from "./PoemCard";
 import Loader from "./Loader";
 
-const MostPoemCard: React.FC<{ poem: Poem; tag: string; loading: boolean }> = ({
-  poem,
-  tag,
-  loading,
-}) => {
+const MostPoemCard: React.FC<{ poem: Poem; tag: string }> = ({ poem, tag }) => {
   const getTruncatedText = (text: string | undefined, maxLength: number) => {
     if (text === undefined || text.length <= maxLength) return text;
     return text.slice(0, maxLength) + "...";
@@ -39,18 +33,12 @@ const MostPoemCard: React.FC<{ poem: Poem; tag: string; loading: boolean }> = ({
         <span className="font-cagliostro text-Dark font-bold">{metric}</span>
       </header>
       <div className="flex flex-col">
-        {loading ? (
-          <Loader />
-        ) : (
-          <>
-            <h4 className="font-cormorant text-xl ">
-              {getTruncatedText(title, 25)}
-            </h4>
-            <p className="font-cagliostro text-sm">
-              {getTruncatedText(content, 30)}
-            </p>
-          </>
-        )}
+        <h4 className="font-cormorant text-xl ">
+          {getTruncatedText(title, 25)}
+        </h4>
+        <p className="font-cagliostro text-sm">
+          {getTruncatedText(content, 30)}
+        </p>
       </div>
     </Link>
   );

@@ -1,11 +1,9 @@
-"use client";
 import React from "react";
 import Loader from "./Loader";
 const TotalAdminCard: React.FC<{
   title: string;
   count: number;
-  loading: boolean;
-}> = ({ title, count, loading }) => {
+}> = ({ title, count }) => {
   return (
     <div className="flex justify-between items-center gap-8 max-w-[300px] border-2 border-Dark/90 p-3">
       <div className="">
@@ -14,7 +12,7 @@ const TotalAdminCard: React.FC<{
       </div>
 
       <span className="text-Dark text-4xl font-cagliostro block mt-3">
-        {loading ? <Loader /> : count}
+        {count}
       </span>
     </div>
   );
