@@ -1,21 +1,13 @@
-"use client";
-import { useEffect, useState } from "react";
-import PoemCard, { Poem } from "../components/PoemCard";
+import { Suspense } from "react";
+import PoemCard from "../components/PoemCard";
 import { LinkButton } from "../components/ui/LinkButton";
 import Loader from "components/Loader";
 
-const Latest = () => {
-  const [poems, setPoems] = useState<Poem[]>([]);
-  const [loading, setLoading] = useState(true);
-  useEffect(() => {
-    const fetchPoems = async () => {
-      const res = await fetch("/api/poems");
-      const data = await res.json();
-      setPoems(data);
-      setLoading(false);
-    };
-    fetchPoems();
-  }, []);
+const Latest = async () => {
+  const data = await fetch(process.env.NEXTAUTH_URL + "api/poems", {
+    cache: "no-store",
+  });
+  const poems = await data.json();
   const latestPoems = [...poems].slice(0, 8);
 
   return (
@@ -31,13 +23,11 @@ const Latest = () => {
         </p>
       </header>
       <section className="cards">
-        {loading ? (
-          <Loader />
-        ) : (
-          latestPoems.map((poem) => (
+        {latestPoems.map((poem) => (
+          <Suspense fallback={<Loader />} key={poem._id}>
             <PoemCard key={poem._id} poem={poem} href={`/blog/${poem._id}`} />
-          ))
-        )}
+          </Suspense>
+        ))}
       </section>
       <div>
         <LinkButton
