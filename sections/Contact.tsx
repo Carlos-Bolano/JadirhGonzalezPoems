@@ -23,7 +23,7 @@ const Contact = () => {
         <div className="flex justify-center items-center md:justify-start gap-6 mt-5">
           <Link
             title="Instagram"
-            href="https://www.instagram.com/jadirhgonzalez/"
+            href="https://www.instagram.com/jadirhgonzalez"
             target="_blank"
             className="text-[#828282] transition-all duration-300 hover:text-Dark hover:-translate-y-1.5"
           >
@@ -31,7 +31,7 @@ const Contact = () => {
           </Link>
           <Link
             title="Email"
-            href="mailto:5gQp0@example.com"
+            href="mailto:jadirh.gonzalez@gmail.com"
             target="_blank"
             className="text-[#828282] transition-all duration-300 hover:text-Dark hover:-translate-y-1.5"
           >
@@ -39,7 +39,7 @@ const Contact = () => {
           </Link>
           <Link
             title="Whatsapp"
-            href="https://wa.me/573219750842?text=Hola%20Jadirh%2C%20estuve%20revisando%20algunos%20de%20tus%20poemas%20y%20me%20encantaron."
+            href="https://wa.me/573017253639?text=Hola%20Jadirh%2C%20estuve%20revisando%20algunos%20de%20tus%20poemas%20y%20me%20encantaron."
             target="_blank"
             className="text-[#828282] transition-all duration-300 hover:text-Dark hover:-translate-y-1.5"
           >
