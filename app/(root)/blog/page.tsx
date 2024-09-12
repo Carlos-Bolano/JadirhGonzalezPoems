@@ -59,13 +59,13 @@ const BlogPage = () => {
             Filter poems or search for a poem in the search bar
           </span>
           <div className="relative font-cagliostro">
-            <Search className="absolute top-1/2 -translate-y-1/2 right-10" />
+            <Search className="absolute top-1/2 -translate-y-1/2 right-2" />
             <Input
               name="search"
               placeholder="Search Poems..."
               value={searchQuery}
               onChange={handleSearchChange}
-              className="w-[300px] py-2 pl-4 pr-8 "
+              className="w-[280px] bg-red-400"
             />
           </div>
         </div>
