@@ -2,7 +2,6 @@ import Link from "next/link";
 import React from "react";
 import Instagram from "../icons/Instagram";
 import Email from "../icons/Email";
-import Whatsapp from "../icons/Whatsapp";
 import ConctactForm from "../components/ConctactForm";
 
 const Contact = () => {
@@ -36,14 +35,6 @@ const Contact = () => {
             className="text-[#828282] transition-all duration-300 hover:text-Dark hover:-translate-y-1.5"
           >
             <Email />
-          </Link>
-          <Link
-            title="Whatsapp"
-            href="https://wa.me/573017253639?text=Hola%20Jadirh%2C%20estuve%20revisando%20algunos%20de%20tus%20poemas%20y%20me%20encantaron."
-            target="_blank"
-            className="text-[#828282] transition-all duration-300 hover:text-Dark hover:-translate-y-1.5"
-          >
-            <Whatsapp />
           </Link>
         </div>
       </section>
