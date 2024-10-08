@@ -39,7 +39,7 @@ Looking forward to connecting with you!
 [GMail URL]: mailto:carlostutos828@gmail.com
 [Portfolio badge]:https://img.shields.io/badge/Portfolio-000000.svg?style=for-the-badge&logo=portfolio&logoColor=white
 [Portfolio URL]: https://carlos-bolano.vercel.app
-[product-screenshot]: https://github.com/Carlos-Bolano/moodflix/blob/main/public/moodflix-screenshot.png
+[product-screenshot]: https://github.com/Carlos-Bolano/JadirhGonzalezPoems/blob/main/public/assets/blog-screenshoot.png
 
 
 [TypeScript Badge]: https://img.shields.io/badge/TypeScript-3178C6.svg?style=for-the-badge&logo=TypeScript&logoColor=white
