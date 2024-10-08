@@ -18,7 +18,7 @@ Jadirh González Poems is a poetry blog that I had the pleasure of designing and
 
 
 ### 🛠️ Built With these technologies
-[![React][React Badge]][React URL] [![Next.js][Next.js Badge]][Next.js URL] [![TailwindCSS][TailwindCSS Badge]][TailwindCSS URL] [![TypeScript][TypeScript Badge]][TypeScript URL] [![Shadcn/UI][Shadcn/UI Badge]][Shadcn/UI URL] [![Lucide][Lucide Badge]][Lucide URL] [![Figma][Figma Badge]][Figma URL] [![Zod][Zod Badge]][Zod URL] [![MongoDB][MongoDB Badge]][MongoDB URL] [![Eslint][Eslint Badge]][Eslint URL] [![Prettier][Prettier Badge]][Prettier URL] [![Gemini][Gemini Badge]][Gemini URL]
+[![React][React Badge]][React URL] [![Next.js][Next.js Badge]][Next.js URL] [![TailwindCSS][TailwindCSS Badge]][TailwindCSS URL] [![TypeScript][TypeScript Badge]][TypeScript URL] [![Shadcn/UI][Shadcn/UI Badge]][Shadcn/UI URL] [![Lucide][Lucide Badge]][Lucide URL] [![Figma][Figma Badge]][Figma URL] [![Zod][Zod Badge]][Zod URL] [![MongoDB][MongoDB Badge]][MongoDB URL] [![Eslint][Eslint Badge]][Eslint URL] [![Prettier][Prettier Badge]][Prettier URL] [![NextAuth][NextAuth Badge]][NextAuth URL]
 
 
 ## 📧 Contact
@@ -64,6 +64,6 @@ Looking forward to connecting with you!
 [Zod URL]: https://zod.dev/
 [MongoDB Badge]: https://img.shields.io/badge/MongoDB-47A248.svg?style=for-the-badge&logo=MongoDB&logoColor=white
 [MongoDB URL]: https://www.mongodb.com/
-[Gemini Badge]: https://img.shields.io/badge/Gemini-FF5722.svg?style=for-the-badge&logo=google&logoColor=white
-[Gemini URL]: https://gemini.google.com/
+[NextAuth Badge]: https://img.shields.io/badge/NextAuth-000000.svg?style=for-the-badge&logo=NextAuth&logoColor=white
+[NextAuth URL]: https://next-auth.js.org/
 
