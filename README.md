@@ -1,36 +1,53 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+# ✨ Blog de Poesía ✨
 
-First, run the development server:
+## 📖 About The Project
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+Este proyecto es un **Blog de Poesía** donde los fans pueden leer, interactuar y compartir poemas. 
+El único autor que puede publicar es **Jadirh González**, y los usuarios pueden dar 'like', comentar, buscar y filtrar poemas según su interés.
+
+[![Product Name Screen Shot][product-screenshot]](https://example.com)
+
+### 🌟 Características:
+- Interacción con los poemas (comentarios y 'likes')
+- Búsqueda y filtro de poemas
+- Panel de administración para gestionar contenido
+- Conexión a MongoDB para almacenar datos
+- Autenticación para administrar los comentarios
+
+### 🛠️ Built With
+* [Next.js](https://nextjs.org/) 
+* [TypeScript](https://www.typescriptlang.org/) 
+* [MongoDB](https://www.mongodb.com/)
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+1. Clonar el repositorio:
+```sh
+git clone https://github.com/JadirhGonzalezPoems.git
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Instalar dependencias:
+```sh
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Configurar las variables de entorno:
+```env
+MONGO_URI=tu_url_de_mongo
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+## 📧 Contact
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Carlos - carlostutos828@gmail.com
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Project Link: [])
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
