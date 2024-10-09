@@ -3,7 +3,7 @@
 
 ## 📖 About The Project
 
-Jadirh González Poems is a poetry blog that I had the pleasure of designing and developing for a client who is passionate about writing. The site offers an interactive and dynamic experience, where fans can explore, comment, and like Jadirh González's poems.
+Jadirh González Poems is a poetry blog that I had the pleasure of designing and developing for a client who is passionate about writing. The site offers an interactive and dynamic experience, where fans can explore, comment on, and like Jadirh González's poems.
 
 [![Product Name Screen Shot][product-screenshot]](https://jadirhgonzalezpoems.vercel.app/)
 
