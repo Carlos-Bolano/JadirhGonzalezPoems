@@ -6,9 +6,18 @@ import SearchablePoems from "components/SearchablePoems";
 
 import { Poem } from "components/PoemCard";
 import AdminPoemsDetails from "components/AdminPoemsDetails";
+import { headers } from "next/headers";
 
 const AdminPage = async () => {
-  const res = await fetch(process.env.NEXTAUTH_URL + "/api/poems", {
+  const hdrs = headers();
+  const envOrigin = process.env.NEXTAUTH_URL ? new URL(process.env.NEXTAUTH_URL).origin : null;
+  const proto = hdrs.get("x-forwarded-proto") ?? (envOrigin?.startsWith("https") ? "https" : "http");
+  const host =
+    hdrs.get("x-forwarded-host") ??
+    hdrs.get("host") ??
+    (envOrigin ? new URL(envOrigin).host : "localhost:3000");
+  const baseUrl = envOrigin ?? `${proto}://${host}`;
+  const res = await fetch(`${baseUrl}/api/poems`, {
     cache: "no-store",
   });
   const poems: Poem[] = await res.json();
@@ -22,12 +31,7 @@ const AdminPage = async () => {
         </div>
         <div className="relative font-cagliostro">
           <Search className="absolute top-1/2 -translate-y-1/2 right-2" />
-          <Input
-            name="search"
-            placeholder="Search Poems..."
-            className="w-[300px] "
-            id="searchInput"
-          />
+          <Input name="search" placeholder="Search Poems..." className="w-[300px] " id="searchInput" />
         </div>
       </header>
       <AdminPoemsDetails totalPoems={totalPoems} poems={poems} />
@@ -35,28 +39,17 @@ const AdminPage = async () => {
       <section className="mt-20">
         <div className="flex justify-center items-center flex-wrap-reverse lg:justify-between mb-10 gap-4">
           <div className="flex space-x-4">
-            <button
-              data-tab="all"
-              className="tab-button border-2 border-Dark/50 py-2 px-6"
-            >
+            <button data-tab="all" className="tab-button border-2 border-Dark/50 py-2 px-6">
               All Poems
             </button>
-            <button
-              data-tab="MostPopular"
-              className="tab-button border-2 border-Dark/50 py-2 px-6"
-            >
+            <button data-tab="MostPopular" className="tab-button border-2 border-Dark/50 py-2 px-6">
               Most Popular
             </button>
-            <button
-              data-tab="MostLiked"
-              className="tab-button border-2 border-Dark/50 py-2 px-6"
-            >
+            <button data-tab="MostLiked" className="tab-button border-2 border-Dark/50 py-2 px-6">
               Most Liked
             </button>
           </div>
-          <span className="hidden lg:block">
-            Edit your poems or write down a new one!
-          </span>
+          <span className="hidden lg:block">Edit your poems or write down a new one!</span>
           <CreatePoem />
         </div>
         <SearchablePoems poems={poems} />
