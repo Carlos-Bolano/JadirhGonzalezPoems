@@ -13,7 +13,10 @@ const connectDB = async () => {
     return;
   }
   try {
-    await mongoose.connect(MONGODB_URI!, {
+    if (!MONGODB_URI) {
+      throw new Error("Missing MONGODB_URI environment variable");
+    }
+    await mongoose.connect(MONGODB_URI, {
       dbName: "jadirhBlog",
       bufferCommands: false,
     });
