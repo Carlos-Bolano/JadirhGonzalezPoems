@@ -33,8 +33,8 @@ const SingIn = () => {
         password: flat.fieldErrors.password?.[0],
       });
       toast({
-        title: "Datos inválidos",
-        description: "Revisa email y contraseña",
+        title: "Invalid credentials",
+        description: "Check your email and password",
         variant: "destructive",
       });
       setLoading(false);
