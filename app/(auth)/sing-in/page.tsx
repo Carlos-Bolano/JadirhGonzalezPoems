@@ -7,25 +7,63 @@ import Image from "next/image";
 import React from "react";
 import Input from "../../../components/ui/Input";
 import { Button } from "../../../components/ui/Button";
+import { toast } from "../../../components/ui/use-toast";
+import { signinSchema } from "../../../schemas/auth.schema";
 
 const SingIn = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [fieldErrors, setFieldErrors] = useState<{ email?: string; password?: string }>({});
   const router = useRouter();
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setLoading(true);
     const formData = new FormData(event.currentTarget);
-    const res = await signIn("credentials", {
-      email: formData.get("email"),
-      password: formData.get("password"),
-      redirect: false,
-    });
-    console.log(res);
-    if (res?.error) setError(res.error as string);
+    const values = {
+      email: String(formData.get("email") || ""),
+      password: String(formData.get("password") || ""),
+    };
 
-    if (res?.ok) return router.push("/admin");
+    const parsed = signinSchema.safeParse(values);
+    if (!parsed.success) {
+      const flat = parsed.error.flatten();
+      setFieldErrors({
+        email: flat.fieldErrors.email?.[0],
+        password: flat.fieldErrors.password?.[0],
+      });
+      toast({
+        title: "Datos inválidos",
+        description: "Revisa email y contraseña",
+        variant: "destructive",
+      });
+      setLoading(false);
+      return;
+    }
+
+    setFieldErrors({});
+    try {
+      const res = await signIn("credentials", {
+        email: values.email,
+        password: values.password,
+        redirect: false,
+      });
+      if (res?.ok) {
+        toast({ title: "Welcome back", description: "Log in successful", variant: "default" });
+        return router.push("/admin");
+      }
+      if (res?.error) {
+        setError(res.error as string);
+        toast({
+          title: "Incorrect credentials",
+          description: "Check your email and password",
+          variant: "destructive",
+        });
+      }
+    } catch (e) {
+      setError("Error Server: " + e);
+      toast({ title: "Error Server: " + e, description: "Try again later", variant: "destructive" });
+    }
     setLoading(false);
   };
   return (
@@ -46,24 +84,19 @@ const SingIn = () => {
           <p className="md:text-[20px] font-cagliostro text-center lg:text-start text-pretty text-Text">
             Enter the realm of words, where verses come alive.
           </p>
-          <form
-            className="mt-10 flex flex-col justify-center items-center gap-5"
-            onSubmit={handleSubmit}
-          >
-            <Input
-              label="Email"
-              placeholder="Jhondoe@gmail.com"
-              name="email"
-              type="email"
-              required
-            />
-            <Input
-              label="Password"
-              placeholder="********"
-              name="password"
-              type="password"
-              required
-            />
+          <form className="mt-10 flex flex-col justify-center items-center gap-5" onSubmit={handleSubmit}>
+            <Input label="Email" placeholder="Jhondoe@gmail.com" name="email" type="email" required />
+            {fieldErrors.email && (
+              <span className="text-red-600 text-sm w-full text-center lg:text-start">
+                {fieldErrors.email}
+              </span>
+            )}
+            <Input label="Password" placeholder="********" name="password" type="password" required />
+            {fieldErrors.password && (
+              <span className="text-red-600 text-sm w-full text-center lg:text-start">
+                {fieldErrors.password}
+              </span>
+            )}
             <div>
               <Button variant={"default"} size={"lg"} type="submit">
                 {loading ? "Loading..." : "Sign In"}
