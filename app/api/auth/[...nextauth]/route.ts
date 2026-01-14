@@ -5,6 +5,7 @@ import connectDB from "../../../../lib/mongoose";
 import User from "../../../../models/user";
 
 const handler = NextAuth({
+  secret: process.env.NEXTAUTH_SECRET,
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -14,24 +15,23 @@ const handler = NextAuth({
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        await connectDB();
+        try {
+          await connectDB();
 
-        const userFound = await User.findOne({
-          email: credentials?.email,
-        }).select("+password");
+          const userFound = await User.findOne({
+            email: credentials?.email,
+          }).select("+password");
 
-        if (!userFound) throw new Error("Invalid credentials");
+          if (!userFound) return null;
 
-        const passwordMatch = await bcrypt.compare(
-          credentials!.password,
-          userFound.password
-        );
+          const passwordMatch = await bcrypt.compare(credentials!.password, userFound.password);
 
-        if (!passwordMatch) throw new Error("Invalid credentials");
+          if (!passwordMatch) return null;
 
-        console.log(userFound);
-
-        return userFound;
+          return userFound;
+        } catch (e) {
+          return null;
+        }
       },
     }),
   ],
